@@ -141,18 +141,18 @@ public class utils {
                     utils obj = new utils();
 
             
-                    // get a reference to the main thread
-                    final Thread mainThread = Thread.currentThread();
+                //     // get a reference to the main thread
+                //     final Thread mainThread = Thread.currentThread();
             
-                    Runtime.getRuntime().addShutdownHook(new Thread() {
-                        public void run() {
-                            System.out.println("Detected a shutdown, let's exit by calling consumer.wakeup()...");
-                            consumer.wakeup();
+                //     Runtime.getRuntime().addShutdownHook(new Thread() {
+                //         public void run() {
+                //             System.out.println("Detected a shutdown, let's exit by calling consumer.wakeup()...");
+                //             consumer.wakeup();
             
-                            try { mainThread.join(); }
-                            catch (InterruptedException e) {e.printStackTrace(); }
-                        }
-                    });
+                //             try { mainThread.join(); }
+                //             catch (InterruptedException e) {e.printStackTrace(); }
+                //         }
+                //     });
             
                     
                     try {
