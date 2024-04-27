@@ -67,7 +67,7 @@ public class utils {
                 properties.setProperty("value.serializer", StringSerializer.class.getName());
         
                 // create the Producer
-                KafkaProducer<String, Object> producer = new KafkaProducer<>(properties);
+                KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
                 Random random = new Random();
                 utils obj = new utils();
 
@@ -76,13 +76,11 @@ public class utils {
 
                                 System.out.println("Producing");
 
-
-                                String rand_num_converted_str = String.valueOf(random.nextInt(3));
-                                String key = rand_num_converted_str; 
+                                String key = String.valueOf(random.nextInt(3));
                                 String message = obj.fetchStockDetails(sector);
                                 
                                 // create a Producer Record
-                                ProducerRecord<String, Object> producerRecord = new ProducerRecord<>(topic, key, message);
+                                ProducerRecord <String, String> producerRecord = new ProducerRecord<>(topic, key, message);
                         
                                 producer.send(producerRecord, new Callback() {
                                 @Override
