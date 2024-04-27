@@ -21,7 +21,7 @@ public class SimpleProducer {
 
         // create a Producer Record
         ProducerRecord<String, String> producerRecord =
-                new ProducerRecord<>("demo_java", "message-2","comment");
+                new ProducerRecord<>("demo_java", "message-2","comment-500");
 
         // send data
         producer.send(producerRecord);
