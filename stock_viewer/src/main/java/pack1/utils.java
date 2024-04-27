@@ -9,8 +9,8 @@ import org.json.JSONArray;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
-// import org.apache.kafka.clients.producer.RecordMetadata;
-// import org.apache.kafka.clients.producer.Callback;
+import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.clients.producer.Callback;
 import java.util.Properties;
 import java.util.Random;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -83,24 +83,24 @@ public class utils {
                                 ProducerRecord <String, String> producerRecord = new ProducerRecord<>(topic, key, message);
 
 
-                                producer.send(producerRecord);
-                                // producer.send(producerRecord, new Callback() {
-                                // @Override
-                                // public void onCompletion(RecordMetadata metadata, Exception e) {
-                                //         // executes every time a record successfully sent or an exception is thrown
-                                //         if (e == null) {
-                                //         // the record was successfully sent
-                                //         System.out.println(
-                                //                 "Received new metadata \n" +
-                                //                 "Topic: " + metadata.topic() + "|" +  
-                                //                 "Partition: " + metadata.partition() + "|" + 
-                                //                 "Offset: " + metadata.offset() + "|" +
-                                //                 "Key: " + key + "|" +  
-                                //                 "Timestamp: " + metadata.timestamp());
-                                //         } else {
-                                //         System.out.println("Error while producing"+e);
-                                //         }
-                                // } } );
+                                // producer.send(producerRecord);
+                                producer.send(producerRecord, new Callback() {
+                                @Override
+                                public void onCompletion(RecordMetadata metadata, Exception e) {
+                                        // executes every time a record successfully sent or an exception is thrown
+                                        if (e == null) {
+                                        // the record was successfully sent
+                                        System.out.println(
+                                                "Received new metadata \n" +
+                                                "Topic: " + metadata.topic() + "|" +  
+                                                "Partition: " + metadata.partition() + "|" + 
+                                                "Offset: " + metadata.offset() + "|" +
+                                                "Key: " + key + "|" +  
+                                                "Timestamp: " + metadata.timestamp());
+                                        } else {
+                                        System.out.println("Error while producing"+e);
+                                        }
+                                } } );
                         
                                 try {Thread.sleep(2000);} 
                                 catch (InterruptedException e) {e.printStackTrace();}
