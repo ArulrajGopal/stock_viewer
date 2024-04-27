@@ -6,6 +6,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import org.json.JSONArray;
+
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Table;
+
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -22,8 +29,20 @@ import java.time.Duration;
 import java.util.Arrays; 
 
 
-
 public class utils {
+
+
+        public void load_into_dydb (String table_name){
+
+                AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
+                DynamoDB dynamoDb = new DynamoDB(client);
+
+                Table table = dynamoDb.getTable(table_name);
+                table.putItem(new Item().withPrimaryKey("primary_id", "vinoth").with("feeling", "sad"));
+        
+                System.out.println("Success");
+
+        }
 
         public String fetchStockDetails (Object sector) {
 
@@ -43,7 +62,8 @@ public class utils {
 
                 catch (IOException | InterruptedException e) {e.printStackTrace(); }
 
-                return null; }
+                return null; 
+        }
 
 
 
@@ -54,7 +74,7 @@ public class utils {
                 Object element = result_jsonarr.get(0);
                 return element;
 
-                }
+        }
 
 
 
@@ -177,7 +197,7 @@ public class utils {
                     finally {consumer.close(); System.out.println("The consumer is now gracefully shut down");}
                 
                 
-                }
+        }
 
 
 
