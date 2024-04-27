@@ -81,24 +81,26 @@ public class utils {
                                 
                                 // create a Producer Record
                                 ProducerRecord <String, String> producerRecord = new ProducerRecord<>(topic, key, message);
-                        
-                                producer.send(producerRecord, new Callback() {
-                                @Override
-                                public void onCompletion(RecordMetadata metadata, Exception e) {
-                                        // executes every time a record successfully sent or an exception is thrown
-                                        if (e == null) {
-                                        // the record was successfully sent
-                                        System.out.println(
-                                                "Received new metadata \n" +
-                                                "Topic: " + metadata.topic() + "|" +  
-                                                "Partition: " + metadata.partition() + "|" + 
-                                                "Offset: " + metadata.offset() + "|" +
-                                                "Key: " + key + "|" +  
-                                                "Timestamp: " + metadata.timestamp());
-                                        } else {
-                                        System.out.println("Error while producing"+e);
-                                        }
-                                } } );
+
+
+                                producer.send(producerRecord);
+                                // producer.send(producerRecord, new Callback() {
+                                // @Override
+                                // public void onCompletion(RecordMetadata metadata, Exception e) {
+                                //         // executes every time a record successfully sent or an exception is thrown
+                                //         if (e == null) {
+                                //         // the record was successfully sent
+                                //         System.out.println(
+                                //                 "Received new metadata \n" +
+                                //                 "Topic: " + metadata.topic() + "|" +  
+                                //                 "Partition: " + metadata.partition() + "|" + 
+                                //                 "Offset: " + metadata.offset() + "|" +
+                                //                 "Key: " + key + "|" +  
+                                //                 "Timestamp: " + metadata.timestamp());
+                                //         } else {
+                                //         System.out.println("Error while producing"+e);
+                                //         }
+                                // } } );
                         
                                 try {Thread.sleep(2000);} 
                                 catch (InterruptedException e) {e.printStackTrace();}
