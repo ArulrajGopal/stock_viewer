@@ -6,7 +6,7 @@ Pre requisite before starting master file
 2. install java, Kafka(configure bashrc), install awscli(configure accesskeys)
 3. start zookeeper and kafka
 
-### Things to Do ##
+### Things to Do ###
 At Home
 =======
 *    Mow the cat
