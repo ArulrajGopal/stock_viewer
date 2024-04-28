@@ -5,7 +5,7 @@ public class Producer {
     // variables = ["PHARMA","ENERGY","FMCG","FIN%20SERVICE"]
     public static void main(String[] args) {
         utils obj = new utils();
-        obj.KafProducer("pharma_tp", "PHARMA");
+        obj.KafProducer("pharma", "PHARMA");
 
     }
     

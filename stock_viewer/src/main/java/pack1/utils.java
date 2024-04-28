@@ -46,13 +46,16 @@ public class utils {
         }
 
 
-        public void load_into_dydb (String table_name){
+        public void load_into_dydb (String table_name, Object message){
 
                 AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
                 DynamoDB dynamoDb = new DynamoDB(client);
 
+                long currentTimeMillis = System.currentTimeMillis();
+
                 Table table = dynamoDb.getTable(table_name);
-                table.putItem(new Item().withPrimaryKey("primary_id", "vinoth").with("feeling", "sad"));
+                table.putItem(new Item().withPrimaryKey("primary_id", currentTimeMillis)
+                                        .with("Data", message));
         
                 System.out.println("Success");
 
@@ -173,22 +176,7 @@ public class utils {
                     // create a consumer
                     KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
                     utils obj = new utils();
-
-            
-                //     // get a reference to the main thread
-                //     final Thread mainThread = Thread.currentThread();
-            
-                //     Runtime.getRuntime().addShutdownHook(new Thread() {
-                //         public void run() {
-                //             System.out.println("Detected a shutdown, let's exit by calling consumer.wakeup()...");
-                //             consumer.wakeup();
-            
-                //             try { mainThread.join(); }
-                //             catch (InterruptedException e) {e.printStackTrace(); }
-                //         }
-                //     });
-            
-                    
+                   
                     try {
                         consumer.subscribe(Arrays.asList(topic));
                         while (true) {
@@ -199,8 +187,10 @@ public class utils {
             
                             for (ConsumerRecord<String, String> record: records) {
                                 Object result = obj.StrToJsonConvert(record.value());
+                                
+                                obj.load_into_dydb (topic, result);
+
                                 System.out.println("Key: " + record.key());
-                                // System.out.println("Value: " + record.value());
                                 System.out.println("message: "+ result);
                                 System.out.println("Partition: " + record.partition());
                                 System.out.println("Offset: " + record.offset());
