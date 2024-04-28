@@ -188,7 +188,7 @@ public class utils {
                             for (ConsumerRecord<String, String> record: records) {
                                 Object result = obj.StrToJsonConvert(record.value());
                                 
-                                obj.load_into_dydb (topic, result);
+                                obj.load_into_dydb (topic, record.value());
 
                                 System.out.println("Key: " + record.key());
                                 System.out.println("message: "+ result);
