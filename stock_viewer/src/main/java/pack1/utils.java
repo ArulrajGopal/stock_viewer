@@ -42,12 +42,24 @@ public class utils {
 
                 long currentTimeMillis = System.currentTimeMillis();
 
+                JSONObject element = (JSONObject) obj.StrToJsonConvert(message);
+
+                String symbol = element.getString("symbol");
+                // float open = element.getFloat("open");
+                // float dayHigh = element.getFloat("dayHigh");
+                // float dayLow = element.getFloat("dayLow");
+                float lastPrice = element.getFloat("lastPrice");
+                // float previousClose = element.getFloat("previousClose");
+                // long totalTradedVolume = element.getInt("totalTradedVolume");
+                // long totalTradedValue = element.getInt("totalTradedValue");
+                // String lastUpdateTime = element.getString("lastUpdateTime");
+
                 Table table = dynamoDb.getTable(table_name);
                 table.putItem(new Item().withPrimaryKey("primary_id", currentTimeMillis)
-                                        .with("Data", message));
+                                        .with("symbol", symbol)
+                                        .with("last_traded_price", lastPrice));
         
                 System.out.println("Success");
-                System.out.println("loaded message - "+ obj.StrToJsonConvert(message));
 
         }
 
