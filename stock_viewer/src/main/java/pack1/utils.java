@@ -34,22 +34,10 @@ import java.util.Arrays;
 
 public class utils {
 
-        public void convert_epoch_to_ist(long epoch_time) {
-
-                Instant instant = Instant.ofEpochMilli(epoch_time);
-                ZoneId istZone = ZoneId.of("Asia/Kolkata");
-                String istTime = instant.atZone(istZone)
-                                        .format(DateTimeFormatter
-                                        .ofPattern("yyyy-MM-dd HH:mm:ss"));
-                System.out.println("IST time: " + istTime);
-        
-        }
-
-
-        public void load_into_dydb (String table_name, Object message){
-
+        public void load_into_dydb (String table_name, String message){
                 AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
                 DynamoDB dynamoDb = new DynamoDB(client);
+                utils obj = new utils();
 
                 long currentTimeMillis = System.currentTimeMillis();
 
@@ -58,6 +46,7 @@ public class utils {
                                         .with("Data", message));
         
                 System.out.println("Success");
+                System.out.println("loaded message - "+ obj.StrToJsonConvert(message));
 
         }
 
@@ -186,12 +175,9 @@ public class utils {
                             ConsumerRecords<String, String> records =  consumer.poll(Duration.ofMillis(1000));
             
                             for (ConsumerRecord<String, String> record: records) {
-                                Object result = obj.StrToJsonConvert(record.value());
-                                
+                               
                                 obj.load_into_dydb (topic, record.value());
-
                                 System.out.println("Key: " + record.key());
-                                System.out.println("message: "+ result);
                                 System.out.println("Partition: " + record.partition());
                                 System.out.println("Offset: " + record.offset());
                             }
@@ -203,7 +189,16 @@ public class utils {
                 
         }
 
+        public void convert_epoch_to_ist(long epoch_time) {
 
+                Instant instant = Instant.ofEpochMilli(epoch_time);
+                ZoneId istZone = ZoneId.of("Asia/Kolkata");
+                String istTime = instant.atZone(istZone)
+                                        .format(DateTimeFormatter
+                                        .ofPattern("yyyy-MM-dd HH:mm:ss"));
+                System.out.println("IST time: " + istTime);
+        
+        }
 
 }
 
