@@ -6,6 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -50,7 +51,7 @@ public class utils {
 
         }
 
-        public String fetchStockDetails (Object sector) {
+        public String fetchStockDetails (String sector) {
 
                 String suffix = "NIFTY%20"+sector+"&Identifier=NIFTY%20"+sector;
                 String uri = String.format("https://latest-stock-price.p.rapidapi.com/price?Indices=%s", suffix);
@@ -76,8 +77,8 @@ public class utils {
         public Object StrToJsonConvert (String jsonString){
 
                 JSONArray result_jsonarr = new JSONArray(jsonString);
-        
                 Object element = result_jsonarr.get(0);
+                
                 return element;
 
         }
