@@ -45,19 +45,27 @@ public class utils {
                 JSONObject element = (JSONObject) obj.StrToJsonConvert(message);
 
                 String symbol = element.getString("symbol");
-                // float open = element.getFloat("open");
-                // float dayHigh = element.getFloat("dayHigh");
-                // float dayLow = element.getFloat("dayLow");
+                float open = element.getFloat("open");
+                float dayHigh = element.getFloat("dayHigh");
+                float dayLow = element.getFloat("dayLow");
                 float lastPrice = element.getFloat("lastPrice");
-                // float previousClose = element.getFloat("previousClose");
-                // long totalTradedVolume = element.getInt("totalTradedVolume");
-                // long totalTradedValue = element.getInt("totalTradedValue");
-                // String lastUpdateTime = element.getString("lastUpdateTime");
+                float previousClose = element.getFloat("previousClose");
+                long totalTradedVolume = element.getInt("totalTradedVolume");
+                long totalTradedValue = element.getInt("totalTradedValue");
+                String lastUpdateTime = element.getString("lastUpdateTime");
 
                 Table table = dynamoDb.getTable(table_name);
                 table.putItem(new Item().withPrimaryKey("primary_id", currentTimeMillis)
                                         .with("symbol", symbol)
-                                        .with("last_traded_price", lastPrice));
+                                        .with("open_price", open)
+                                        .with("day_high", dayHigh)
+                                        .with("day_low", dayLow)
+                                        .with("last_traded_price", lastPrice)
+                                        .with("previous_close", previousClose)
+                                        .with("total_traded_vol", totalTradedVolume)
+                                        .with("total_traded_val", totalTradedValue)
+                                        .with("last_updated_time", lastUpdateTime)
+                                        );
         
                 System.out.println("Success");
 
