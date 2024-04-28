@@ -12,16 +12,18 @@ public class dynamodb_load_data {
 
     public static void main (String[] args){
 
-        String key = "Shankar";
-        String attribute = "fav_sport";
-        String value = "football";
+
+        String attribute = "name";
+        String value = "Arulraj";
 
 
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
         DynamoDB dynamoDb = new DynamoDB(client);
 
+        long currentTimeMillis = System.currentTimeMillis();
+
         Table table = dynamoDb.getTable("table-1");
-        table.putItem(new Item().withPrimaryKey("primary_id", key).with(attribute, value));
+        table.putItem(new Item().withPrimaryKey("primary_id", currentTimeMillis).with(attribute, value));
 
         System.out.println("Success");
 

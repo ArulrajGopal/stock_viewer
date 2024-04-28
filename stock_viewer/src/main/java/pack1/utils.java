@@ -25,11 +25,25 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.CooperativeStickyAssignor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import java.time.Duration; 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays; 
 
 
 public class utils {
+
+        public void convert_epoch_to_ist(long epoch_time) {
+
+                Instant instant = Instant.ofEpochMilli(epoch_time);
+                ZoneId istZone = ZoneId.of("Asia/Kolkata");
+                String istTime = instant.atZone(istZone)
+                                        .format(DateTimeFormatter
+                                        .ofPattern("yyyy-MM-dd HH:mm:ss"));
+                System.out.println("IST time: " + istTime);
+        
+        }
 
 
         public void load_into_dydb (String table_name){
