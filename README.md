@@ -1,4 +1,6 @@
+
 Execution can be done through master file
+=======
 
 Pre requisite before starting master file
 
@@ -7,8 +9,7 @@ Pre requisite before starting master file
 3. start zookeeper and kafka
 
 ### Things to Do ###
-At Home
-=======
+
 *    Mow the cat
 *    Feed the lawn
 
