@@ -1,15 +1,10 @@
-
-Execution can be done through master file
-=======
-
-Pre requisite before starting master file
+Steps to start the execution
 =======
 *    Use Linux machine
 *    install java, Kafka(configure bashrc), install awscli(configure accesskeys)
 *    start zookeeper and kafka
-*    
+*    now execute master.java
 
-### Now EXECUTE master.java ###
 
 
 
