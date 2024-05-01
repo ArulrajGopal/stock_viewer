@@ -16,7 +16,7 @@ Steps to start the execution
                   kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic demo_java
      
 *    create neccessary tables in dynamodb with correct primary key
-*    now execute master.java
+*    now execute main_file.java
 
 
 
