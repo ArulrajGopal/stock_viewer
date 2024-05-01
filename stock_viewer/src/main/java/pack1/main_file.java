@@ -15,19 +15,22 @@ class MyThread extends Thread {
         String system_type = parts[0];
         String sector_variable = parts[1];
 
+        System.out.println(system_type);
+        System.out.println(sector_variable);
 
-        if (system_type == "producer" && sector_variable =="finservice") { 
-            obj.KafProducer("finservice");
-        }
-        else if (system_type == "producer" && sector_variable =="finservice"){ 
-            obj.KafConsumer("finservice");
-        }
-        else if (system_type == "producer" && sector_variable =="pharma"){ 
-            obj.KafProducer("pharma");
-        }
-        else if (system_type == "consumer" && sector_variable =="pharma"){ 
-            obj.KafConsumer("pharma");
-        }
+
+        // if (system_type == "producer" && sector_variable =="finservice") { 
+        //     obj.KafProducer("finservice");
+        // }
+        // else if (system_type == "producer" && sector_variable =="finservice"){ 
+        //     obj.KafConsumer("finservice");
+        // }
+        // else if (system_type == "producer" && sector_variable =="pharma"){ 
+        //     obj.KafProducer("pharma");
+        // }
+        // else if (system_type == "consumer" && sector_variable =="pharma"){ 
+        //     obj.KafConsumer("pharma");
+        // }
 
     }
 
