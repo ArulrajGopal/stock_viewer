@@ -28,7 +28,6 @@ class MyThread extends Thread {
     // private void producermethod(String sector_variable) {obj.KafProducer(sector_variable);}
     // private void consumermethod(String sector_variable) {obj.KafConsumer(sector_variable);}
     
-
 }
 
 public class master {
