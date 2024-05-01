@@ -170,42 +170,44 @@ public class utils {
         }
 
 
-        public void KafConsumer(String topic, String groupId) {
+        public void KafConsumer(String topic) {
+
+                String groupId = topic+"_group_id";
          
-                    // create Producer Properties
-                    Properties properties = new Properties();
+                // create Producer Properties
+                Properties properties = new Properties();
+        
+                // Setting up properties
+                properties.setProperty("bootstrap.servers", "127.0.0.1:9092");
+                properties.setProperty("key.deserializer", StringDeserializer.class.getName());
+                properties.setProperty("value.deserializer", StringDeserializer.class.getName());
+                properties.setProperty("group.id", groupId);
+                properties.setProperty("auto.offset.reset", "earliest");
+                properties.setProperty("partition.assignment.strategy", CooperativeStickyAssignor.class.getName());
             
-                    // Setting up properties
-                    properties.setProperty("bootstrap.servers", "127.0.0.1:9092");
-                    properties.setProperty("key.deserializer", StringDeserializer.class.getName());
-                    properties.setProperty("value.deserializer", StringDeserializer.class.getName());
-                    properties.setProperty("group.id", groupId);
-                    properties.setProperty("auto.offset.reset", "earliest");
-                    properties.setProperty("partition.assignment.strategy", CooperativeStickyAssignor.class.getName());
-            
-                    // create a consumer
-                    KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
-                    utils obj = new utils();
-                   
-                    try {
-                        consumer.subscribe(Arrays.asList(topic));
-                        while (true) {
-            
-                            System.out.println("Polling");
-            
-                            ConsumerRecords<String, String> records =  consumer.poll(Duration.ofMillis(1000));
-            
-                            for (ConsumerRecord<String, String> record: records) {
-                               
-                                obj.load_into_dydb (topic, record.value());
-                                System.out.println("Key: " + record.key());
-                                System.out.println("Partition: " + record.partition());
-                                System.out.println("Offset: " + record.offset());
-                            }
-                    }
-                    }  
-                    catch (Exception e) { System.out.println("Unexpected exception in the consumer: "+ e);} 
-                    finally {consumer.close(); System.out.println("The consumer is now gracefully shut down");}
+                // create a consumer
+                KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
+                utils obj = new utils();
+                
+                try {
+                consumer.subscribe(Arrays.asList(topic));
+                while (true) {
+        
+                        System.out.println("Polling");
+        
+                        ConsumerRecords<String, String> records =  consumer.poll(Duration.ofMillis(1000));
+        
+                        for (ConsumerRecord<String, String> record: records) {
+                        
+                        obj.load_into_dydb (topic, record.value());
+                        System.out.println("Key: " + record.key());
+                        System.out.println("Partition: " + record.partition());
+                        System.out.println("Offset: " + record.offset());
+                        }
+                }
+                }  
+                catch (Exception e) { System.out.println("Unexpected exception in the consumer: "+ e);} 
+                finally {consumer.close(); System.out.println("The consumer is now gracefully shut down");}
                 
                 
         }
