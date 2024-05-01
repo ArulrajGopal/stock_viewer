@@ -33,7 +33,7 @@ class MyThread extends Thread {
 
 }
 
-public class master {
+public class main_file {
     public static void main(String[] args) {
         MyThread thread1 = new MyThread("producer#finservice");
         MyThread thread2 = new MyThread("consumer#finservice");
