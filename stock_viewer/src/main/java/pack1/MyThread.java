@@ -1,3 +1,5 @@
+package pack1;
+
 public class MyThread extends Thread {
     private int count; // Parameter to be passed
 
