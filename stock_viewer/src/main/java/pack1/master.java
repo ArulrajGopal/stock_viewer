@@ -10,14 +10,24 @@ class MyThread extends Thread {
     }
 
     public void run() {
-        System.out.println(parameter);
-        // if (parameter == "producer") { producermethod(); }
-        // else if (parameter == "consumer"){ consumermethod(); }
+        String[] parts = parameter.split("#", 2);
+        String system_type = parts[0];
+        String sector_variable = parts[1];
+
+        if (system_type == "producer") { 
+            // producermethod(sector_variable); 
+            System.out.println(sector_variable);
+        }
+        else if (system_type == "consumer"){ 
+            // consumermethod(sector_variable);
+            System.out.println(sector_variable);
+        }
 
     }
 
-    // private void consumermethod() {obj.KafConsumer("finservice");}
-    // private void producermethod() {obj.KafProducer("finservice");}
+    // private void producermethod(String sector_variable) {obj.KafProducer(sector_variable);}
+    // private void consumermethod(String sector_variable) {obj.KafConsumer(sector_variable);}
+    
 
 }
 
