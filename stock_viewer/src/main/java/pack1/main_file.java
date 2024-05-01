@@ -11,26 +11,10 @@ class MyThread extends Thread {
 
     public void run() {
 
-        String[] parts = parameter.split("#", 2);
-        String system_type = parts[0];
-        String sector_variable = parts[1];
-
-        System.out.println(system_type);
-        System.out.println(sector_variable);
-
-
-        // if (system_type == "producer" && sector_variable =="finservice") { 
-        //     obj.KafProducer("finservice");
-        // }
-        // else if (system_type == "producer" && sector_variable =="finservice"){ 
-        //     obj.KafConsumer("finservice");
-        // }
-        // else if (system_type == "producer" && sector_variable =="pharma"){ 
-        //     obj.KafProducer("pharma");
-        // }
-        // else if (system_type == "consumer" && sector_variable =="pharma"){ 
-        //     obj.KafConsumer("pharma");
-        // }
+        if (parameter == "producer_finservice") { obj.KafProducer("finservice"); }
+        else if (parameter == "consumer_finservice"){ obj.KafConsumer("finservice");}
+        else if (parameter == "producer_pharma"){ obj.KafProducer("pharma");}
+        else if (parameter == "consumer_pharma"){ obj.KafConsumer("pharma");}
 
     }
 
@@ -38,10 +22,10 @@ class MyThread extends Thread {
 
 public class main_file {
     public static void main(String[] args) {
-        MyThread thread1 = new MyThread("producer#finservice");
-        MyThread thread2 = new MyThread("consumer#finservice");
-        MyThread thread3 = new MyThread("producer#pharma");
-        MyThread thread4 = new MyThread("consumer#pharma");
+        MyThread thread1 = new MyThread("producer_finservice");
+        MyThread thread2 = new MyThread("consumer_finservice");
+        MyThread thread3 = new MyThread("producer_pharma");
+        MyThread thread4 = new MyThread("consumer_pharma");
 
 
         thread1.start();
