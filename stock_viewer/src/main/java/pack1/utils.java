@@ -42,33 +42,36 @@ public class utils {
                 long currentTimeMillis = System.currentTimeMillis();
 
                 JSONArray result_jsonarr = new JSONArray(message);
-                JSONObject element =(JSONObject) result_jsonarr.get(0);
+                if (result_jsonarr.length() != 0){
 
+                        JSONObject element =(JSONObject) result_jsonarr.get(0);
 
-                String symbol = element.getString("symbol");
-                float open = element.getFloat("open");
-                float dayHigh = element.getFloat("dayHigh");
-                float dayLow = element.getFloat("dayLow");
-                float lastPrice = element.getFloat("lastPrice");
-                float previousClose = element.getFloat("previousClose");
-                long totalTradedVolume = element.getInt("totalTradedVolume");
-                long totalTradedValue = element.getInt("totalTradedValue");
-                String lastUpdateTime = element.getString("lastUpdateTime");
+                        String symbol = element.getString("symbol");
+                        float open = element.getFloat("open");
+                        float dayHigh = element.getFloat("dayHigh");
+                        float dayLow = element.getFloat("dayLow");
+                        float lastPrice = element.getFloat("lastPrice");
+                        float previousClose = element.getFloat("previousClose");
+                        long totalTradedVolume = element.getInt("totalTradedVolume");
+                        long totalTradedValue = element.getInt("totalTradedValue");
+                        String lastUpdateTime = element.getString("lastUpdateTime");
 
-                Table table = dynamoDb.getTable(table_name);
-                table.putItem(new Item().withPrimaryKey("primary_id", currentTimeMillis)
-                                        .with("symbol", symbol)
-                                        .with("open_price", open)
-                                        .with("day_high", dayHigh)
-                                        .with("day_low", dayLow)
-                                        .with("last_traded_price", lastPrice)
-                                        .with("previous_close", previousClose)
-                                        .with("total_traded_vol", totalTradedVolume)
-                                        .with("total_traded_val", totalTradedValue)
-                                        .with("last_updated_time", lastUpdateTime)
-                                        );
-        
-                System.out.println("Success");
+                        Table table = dynamoDb.getTable(table_name);
+                        table.putItem(new Item().withPrimaryKey("primary_id", currentTimeMillis)
+                                                .with("symbol", symbol)
+                                                .with("open_price", open)
+                                                .with("day_high", dayHigh)
+                                                .with("day_low", dayLow)
+                                                .with("last_traded_price", lastPrice)
+                                                .with("previous_close", previousClose)
+                                                .with("total_traded_vol", totalTradedVolume)
+                                                .with("total_traded_val", totalTradedValue)
+                                                .with("last_updated_time", lastUpdateTime)
+                                                );
+                
+                        System.out.println("Success");
+                }
+                else {System.out.println("no extract");}
 
         }
 
