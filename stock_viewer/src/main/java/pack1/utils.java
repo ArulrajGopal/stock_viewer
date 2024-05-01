@@ -72,7 +72,10 @@ public class utils {
 
         }
 
-        public String fetchStockDetails (String sector) {
+        public String fetchStockDetails (String topic) {
+                config config_obj = new config();
+
+                String sector = config_obj.get_sector_code(topic);
 
                 String suffix = "NIFTY%20"+sector+"&Identifier=NIFTY%20"+sector;
                 String uri = String.format("https://latest-stock-price.p.rapidapi.com/price?Indices=%s", suffix);
@@ -95,7 +98,7 @@ public class utils {
 
 
 
-        public void KafProducer (String topic, String sector){
+        public void KafProducer (String topic){
         
                 // create Producer Properties & Setting up properties
                 Properties properties = new Properties();
@@ -114,7 +117,7 @@ public class utils {
                                 System.out.println("Producing");
 
                                 String key = String.valueOf(random.nextInt(3));
-                                String message = obj.fetchStockDetails(sector);
+                                String message = obj.fetchStockDetails(topic);
                                 
                                 // create a Producer Record
                                 ProducerRecord <String, String> producerRecord = new ProducerRecord<>(topic, key, message);
