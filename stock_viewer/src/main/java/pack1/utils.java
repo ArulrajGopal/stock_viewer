@@ -38,11 +38,12 @@ public class utils {
         public void load_into_dydb (String table_name, String message){
                 AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
                 DynamoDB dynamoDb = new DynamoDB(client);
-                utils obj = new utils();
 
                 long currentTimeMillis = System.currentTimeMillis();
 
-                JSONObject element = (JSONObject) obj.StrToJsonConvert(message);
+                JSONArray result_jsonarr = new JSONArray(message);
+                JSONObject element =(JSONObject) result_jsonarr.get(0);
+
 
                 String symbol = element.getString("symbol");
                 float open = element.getFloat("open");
@@ -90,17 +91,6 @@ public class utils {
                 catch (IOException | InterruptedException e) {e.printStackTrace(); }
 
                 return null; 
-        }
-
-
-
-        public Object StrToJsonConvert (String jsonString){
-
-                JSONArray result_jsonarr = new JSONArray(jsonString);
-                Object element = result_jsonarr.get(0);
-                
-                return element;
-
         }
 
 
@@ -200,6 +190,7 @@ public class utils {
                         for (ConsumerRecord<String, String> record: records) {
                         
                         obj.load_into_dydb (topic, record.value());
+                        // System.out.println("Key: " + record.value());
                         System.out.println("Key: " + record.key());
                         System.out.println("Partition: " + record.partition());
                         System.out.println("Offset: " + record.offset());
