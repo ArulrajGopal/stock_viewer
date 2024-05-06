@@ -1,0 +1,4 @@
+kafka-topics.sh --bootstrap-server localhost:9092 --topic pharma --create --partitions 3 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --topic finservice --create --partitions 3 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --topic energy --create --partitions 3 --replication-factor 1
+kafka-topics.sh --bootstrap-server localhost:9092 --topic fmcg --create --partitions 3 --replication-factor 1
