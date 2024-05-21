@@ -24,8 +24,13 @@ Steps to start the execution
                   kafka-topics.sh --bootstrap-server localhost:9092 --topic topic_name --describe
                   kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic topic_name
      
-*    create neccessary tables in dynamodb with correct primary key
-*    now execute main_file.java
+*    execute ddl file which creates the below
+        1. Tables in dynamoDB
+        2. IAM role for lambda
+        3. lambda function with dynamoboDB trigger
+        4. SNS topic and subscription
+          
+*   execute main java file
 
 
 
