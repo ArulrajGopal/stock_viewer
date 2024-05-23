@@ -1,5 +1,5 @@
 Steps to start the execution
-=======
+============================
 *    spin up linux machine
 *    install java, Kafka(configure bashrc), install awscli(configure accesskeys)
 
@@ -9,14 +9,28 @@ Steps to start the execution
                   zookeeper-server-start.sh ~/kafka_2.13-3.1.0/config/zookeeper.properties
                   kafka-server-start.sh ~/kafka_2.13-3.1.0/config/server.properties
 *    create topics in kafka
-  
-                  kafka-topics.sh --bootstrap-server localhost:9092 --topic demo_java --create --partitions 3 --replication-factor 1
-                  kafka-topics.sh --bootstrap-server localhost:9092 --list
-                  kafka-topics.sh --bootstrap-server localhost:9092 --topic demo_java --describe
-                  kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic demo_java
+
+                  kafka-topics.sh --bootstrap-server localhost:9092 --topic pharma --create --partitions 3 --replication-factor 1
+                  kafka-topics.sh --bootstrap-server localhost:9092 --topic finservice --create --partitions 3 --replication-factor 1
+                  kafka-topics.sh --bootstrap-server localhost:9092 --topic energy --create --partitions 3 --replication-factor 1
+                  kafka-topics.sh --bootstrap-server localhost:9092 --topic fmcg --create --partitions 3 --replication-factor 1
      
-*    create neccessary tables in dynamodb with correct primary key
-*    now execute master.java
+*    check topic list
+  
+                  kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+*    if required, describe topics and delete topic
+  
+                  kafka-topics.sh --bootstrap-server localhost:9092 --topic topic_name --describe
+                  kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic topic_name
+     
+*    execute ddl file which creates the below
+        1. Tables in dynamoDB
+        2. IAM role for lambda
+        3. lambda function with dynamoboDB trigger
+        4. SNS topic and subscription
+          
+*   execute main java file
 
 
 
