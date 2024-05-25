@@ -21,7 +21,7 @@ public class create_lambda_function {
     public static void main(String[] args) {
 
         String functionName = "myfunction_2";
-        String filePath = "/home/Arulraj/Desktop/stock_viewer/aws_lambda/lambda_function.py";
+        String filePath = "aws_lambda/lambda_function.py";
         String role = "arn:aws:iam::042488648100:role/service-role/dynamodbforlambda-role-ekikji25";
         String handler = "lambda_handler";
 
