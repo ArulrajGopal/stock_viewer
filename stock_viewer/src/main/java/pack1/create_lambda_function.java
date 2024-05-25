@@ -22,27 +22,11 @@ import java.io.InputStream;
 public class create_lambda_function {
     public static void main(String[] args) {
 
-        // final String usage = """
+        String functionName = "myfunction_2";
+        String filePath = "/home/Arulraj/Desktop/stock_viewer/aws_lambda/lambda_function.py";
+        String role = "dynamodbforlambda-role-ekikji25";
+        String handler = "lambda_handler";
 
-        //         Usage:
-        //             <functionName> <filePath> <role> <handler>\s
-
-        //         Where:
-        //             functionName - The name of the Lambda function.\s
-        //             filePath - The path to the ZIP or JAR where the code is located.\s
-        //             role - The role ARN that has Lambda permissions.\s
-        //             handler - The fully qualified method name (for example, example.Handler::handleRequest). \s
-        //         """;
-
-        if (args.length != 4) {
-            System.out.println(usage);
-            System.exit(1);
-        }
-
-        String functionName = args[0];
-        String filePath = args[1];
-        String role = args[2];
-        String handler = args[3];
         Region region = Region.US_EAST_1;
         LambdaClient awsLambda = LambdaClient.builder()
                 .region(region)
