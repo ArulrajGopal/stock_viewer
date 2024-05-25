@@ -22,7 +22,7 @@ public class create_lambda_function {
 
         String functionName = "my_lambda_function";
         String filePath = "stock_viewer/lambda_function.zip";
-        String role = "arn:aws:iam::042488648100:role/service-role/dynamodbforlambda-role-ekikji25";
+        String role = "arn:aws:iam::042488648100:role/arulraj_lambda_role";
         String handler = "lambda_handler";
 
         Region region = Region.US_EAST_1;
@@ -54,7 +54,7 @@ public class create_lambda_function {
                     .description("Created by the Lambda Java API")
                     .code(code)
                     .handler(handler)
-                    .runtime(Runtime.PYTHON3_12)
+                    .runtime(Runtime.PYTHON3_9)
                     .role(role)
                     .build();
 
