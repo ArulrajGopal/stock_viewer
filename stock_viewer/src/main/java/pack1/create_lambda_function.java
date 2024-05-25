@@ -20,7 +20,7 @@ import java.io.InputStream;
 public class create_lambda_function {
     public static void main(String[] args) {
 
-        String functionName = "my_lambda_function";
+        String functionName = "lambda_function";
         String filePath = "stock_viewer/lambda_function.zip";
         String role = "arn:aws:iam::042488648100:role/arulraj_lambda_role";
         String handler = "lambda_handler";
