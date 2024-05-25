@@ -34,7 +34,7 @@ public class CreateLambdaWithDynamoDBTrigger {
                 .build();
 
         // Enable DynamoDB Streams on the table
-        enableDynamoDBStream(dynamoDbClient, tableName);
+        // enableDynamoDBStream(dynamoDbClient, tableName);
 
         // Get the Stream ARN for the table
         streamArn = getStreamArn(dynamoDbClient, tableName);
@@ -48,6 +48,8 @@ public class CreateLambdaWithDynamoDBTrigger {
         lambdaClient.close();
         dynamoDbClient.close();
     }
+
+
 
     private static void enableDynamoDBStream(DynamoDbClient dynamoDbClient, String tableName) {
         StreamSpecification streamSpecification = StreamSpecification.builder()
@@ -64,9 +66,15 @@ public class CreateLambdaWithDynamoDBTrigger {
         System.out.println("DynamoDB Streams enabled on table " + tableName);
     }
 
+
+
+
     private static String getStreamArn(DynamoDbClient dynamoDbClient, String tableName) {
         return dynamoDbClient.describeTable(r -> r.tableName(tableName)).table().latestStreamArn();
     }
+
+
+
 
     private static void createLambdaFunction(LambdaClient lambdaClient,
                                              String functionName,
@@ -86,13 +94,17 @@ public class CreateLambdaWithDynamoDBTrigger {
                 .description("Created by the Lambda Java API")
                 .code(code)
                 .handler(handler)
-                .runtime(Runtime.JAVA11)
+                .runtime(Runtime.PYTHON3_9)
                 .role(role)
                 .build();
 
         lambdaClient.createFunction(functionRequest);
         System.out.println("Lambda function created: " + functionName);
     }
+
+
+
+
 
     private static void createEventSourceMapping(LambdaClient lambdaClient, String functionName, String streamArn) {
         CreateEventSourceMappingRequest eventSourceMappingRequest = CreateEventSourceMappingRequest.builder()
