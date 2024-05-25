@@ -20,7 +20,7 @@ public class CreateLambdaWithDynamoDBTrigger {
         String functionName = "lambda_function";
         String filePath = "stock_viewer/lambda_function.zip";
         String role = "arn:aws:iam::042488648100:role/arulraj_lambda_role";
-        String handler = "lambda_handler";
+        String handler = "lambda_function.lambda_handler";
         String tableName = "test1";
         String streamArn;
 
@@ -101,9 +101,6 @@ public class CreateLambdaWithDynamoDBTrigger {
         lambdaClient.createFunction(functionRequest);
         System.out.println("Lambda function created: " + functionName);
     }
-
-
-
 
 
     private static void createEventSourceMapping(LambdaClient lambdaClient, String functionName, String streamArn) {
