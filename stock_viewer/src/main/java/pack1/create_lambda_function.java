@@ -17,8 +17,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 
-
-
 public class create_lambda_function {
     public static void main(String[] args) {
 
