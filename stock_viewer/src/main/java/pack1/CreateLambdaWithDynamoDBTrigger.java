@@ -10,6 +10,7 @@ import software.amazon.awssdk.services.lambda.model.CreateEventSourceMappingRequ
 import software.amazon.awssdk.services.lambda.model.CreateFunctionRequest;
 import software.amazon.awssdk.services.lambda.model.FunctionCode;
 import software.amazon.awssdk.services.lambda.model.Runtime;
+import software.amazon.awssdk.services.lambda.model.ResourceConflictException;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -81,36 +82,51 @@ public class CreateLambdaWithDynamoDBTrigger {
                                              String filePath,
                                              String role,
                                              String handler) throws Exception {
+        try {
+                InputStream is = new FileInputStream(filePath);
+                SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
 
-        InputStream is = new FileInputStream(filePath);
-        SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
+                FunctionCode code = FunctionCode.builder()
+                        .zipFile(fileToUpload)
+                        .build();
 
-        FunctionCode code = FunctionCode.builder()
-                .zipFile(fileToUpload)
-                .build();
+                CreateFunctionRequest functionRequest = CreateFunctionRequest.builder()
+                        .functionName(functionName)
+                        .description("Created by the Lambda Java API")
+                        .code(code)
+                        .handler(handler)
+                        .runtime(Runtime.PYTHON3_9)
+                        .role(role)
+                        .build();
 
-        CreateFunctionRequest functionRequest = CreateFunctionRequest.builder()
-                .functionName(functionName)
-                .description("Created by the Lambda Java API")
-                .code(code)
-                .handler(handler)
-                .runtime(Runtime.PYTHON3_9)
-                .role(role)
-                .build();
+                lambdaClient.createFunction(functionRequest);
+                System.out.println("Lambda function created: " + functionName);
+       }
+       catch (ResourceConflictException e) {
 
-        lambdaClient.createFunction(functionRequest);
-        System.out.println("Lambda function created: " + functionName);
+        System.out.println("lambda function already exists");
+        
+        }
+
     }
 
 
     private static void createEventSourceMapping(LambdaClient lambdaClient, String functionName, String streamArn) {
-        CreateEventSourceMappingRequest eventSourceMappingRequest = CreateEventSourceMappingRequest.builder()
+        try {
+                CreateEventSourceMappingRequest eventSourceMappingRequest = CreateEventSourceMappingRequest.builder()
                 .eventSourceArn(streamArn)
                 .functionName(functionName)
                 .startingPosition("LATEST")
                 .build();
 
-        lambdaClient.createEventSourceMapping(eventSourceMappingRequest);
-        System.out.println("Event source mapping created for function: " + functionName);
+                lambdaClient.createEventSourceMapping(eventSourceMappingRequest);
+                System.out.println("Event source mapping created for function: " + functionName);
+        }
+        catch (ResourceConflictException e) {
+
+                System.out.println("EventSourceMapping already exists");
+                
+        }
+
     }
 }
