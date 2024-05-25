@@ -54,7 +54,7 @@ public class create_lambda_function {
                     .description("Created by the Lambda Java API")
                     .code(code)
                     .handler(handler)
-                    .runtime(Runtime.JAVA21)
+                    .runtime(Runtime.PYTHON3_12)
                     .role(role)
                     .build();
 
