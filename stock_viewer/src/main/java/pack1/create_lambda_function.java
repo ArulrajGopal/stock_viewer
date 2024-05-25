@@ -23,7 +23,7 @@ public class create_lambda_function {
         String functionName = "lambda_function";
         String filePath = "stock_viewer/lambda_function.zip";
         String role = "arn:aws:iam::042488648100:role/arulraj_lambda_role";
-        String handler = "lambda_handler";
+        String handler = "pack1.DynamoDBStreamHandler::handleRequest";
 
         Region region = Region.US_EAST_1;
         LambdaClient awsLambda = LambdaClient.builder()

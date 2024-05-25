@@ -5,7 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.DynamodbEvent;
 
 
-public class trigger_for_lambda implements RequestHandler<DynamodbEvent, Void> {
+public class DynamoDBStreamHandler implements RequestHandler<DynamodbEvent, Void> {
 
     @Override
     public Void handleRequest(DynamodbEvent event, Context context) {
