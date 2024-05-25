@@ -17,7 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 
-public class create_lambda_function {
+public class create_lambda_function_old {
     public static void main(String[] args) {
 
         String functionName = "lambda_function";
