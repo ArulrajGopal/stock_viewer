@@ -20,7 +20,7 @@ public class CreateLambdaWithDynamoDBTrigger {
         String functionName = "lambda_function";
         String filePath = "stock_viewer/lambda_function.zip";
         String role = "arn:aws:iam::042488648100:role/arulraj_lambda_role";
-        String handler = "pack1.DynamoDBStreamHandler::handleRequest";
+        String handler = "lambda_handler";
         String tableName = "test1";
         String streamArn;
 
