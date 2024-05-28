@@ -7,6 +7,8 @@ public class test1 {
         access_config obj = new access_config();
 
         System.out.println(obj.get_identifier_list("FMCG"));
+
+        
     }
     
 }
