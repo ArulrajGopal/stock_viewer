@@ -1,10 +1,5 @@
 package pack1;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -75,30 +70,6 @@ public class utils {
 
         }
 
-        public String fetchStockDetails (String topic) {
-                config config_obj = new config();
-
-                String sector = config_obj.get_sector_code(topic);
-
-                String suffix = "NIFTY%20"+sector+"&Identifier=NIFTY%20"+sector;
-                String uri = String.format("https://latest-stock-price.p.rapidapi.com/price?Indices=%s", suffix);
-
-                try {
-                    HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(uri))
-                        .header("X-RapidAPI-Key", "23a945bde0msha8c00c2faa561f5p119d77jsnea9895e0d88d")
-                        .header("X-RapidAPI-Host", "latest-stock-price.p.rapidapi.com")
-                        .method("GET", HttpRequest.BodyPublishers.noBody())
-                        .build();
-
-                    HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-                     return response.body(); }
-
-                catch (IOException | InterruptedException e) {e.printStackTrace(); }
-
-                return null; 
-        }
-
 
 
         public void KafProducer (String topic){
@@ -112,7 +83,7 @@ public class utils {
                 // create the Producer
                 KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
                 Random random = new Random();
-                utils obj = new utils();
+                fetchstockdetails obj_Fetchstockdetails = new fetchstockdetails();
 
                 try {
                         while(true) {
@@ -120,7 +91,7 @@ public class utils {
                                 System.out.println("Producing");
 
                                 String key = String.valueOf(random.nextInt(3));
-                                String message = obj.fetchStockDetails(topic);
+                                String message = obj_Fetchstockdetails.fetchStockDetails();
                                 
                                 // create a Producer Record
                                 ProducerRecord <String, String> producerRecord = new ProducerRecord<>(topic, key, message);
@@ -145,7 +116,7 @@ public class utils {
                                         }
                                 } } );
                         
-                                try {Thread.sleep(20000);} 
+                                try {Thread.sleep(2000);} 
                                 catch (InterruptedException e) {e.printStackTrace();}
 
                         }

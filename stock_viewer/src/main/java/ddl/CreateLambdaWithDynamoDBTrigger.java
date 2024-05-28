@@ -1,4 +1,4 @@
-package pack1;
+package ddl;
 
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
