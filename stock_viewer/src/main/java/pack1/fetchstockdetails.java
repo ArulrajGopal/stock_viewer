@@ -49,9 +49,11 @@ public class fetchstockdetails {
                                             .url(url)
                                             .build();
                     Response response = client.newCall(request).execute();
-                    String result = response.body().string();
-                    String stringWithoutQuotes = result.replaceAll("^\"|\"$", "");
-                    return stringWithoutQuotes;
+                    String result = response.body().string()
+                                    .replace("\"[","[")
+                                    .replace("]\"","]")
+                                    .replace("\\\"", "\"");
+                    return result;
                 }
 
                 catch (IOException e) {
