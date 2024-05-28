@@ -13,12 +13,12 @@ public class fetchstockdetails {
 
     public static void main(String[] args) {
         fetchstockdetails obj = new fetchstockdetails();
-        String result = obj.fetchStockDetails_through_aws_api_gateway();
+        String result = obj.fetchstockDetails_direct();
         System.out.println(result);
 
     }
 
-    public String fetchStockDetails () {
+    public String fetchstockDetails_direct () {
                 try {
                     HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create("https://latest-stock-price.p.rapidapi.com/any"))
@@ -49,7 +49,9 @@ public class fetchstockdetails {
                                             .url(url)
                                             .build();
                     Response response = client.newCall(request).execute();
-                    return response.body().string();
+                    String result = response.body().string();
+                    String stringWithoutQuotes = result.replaceAll("^\"|\"$", "");
+                    return stringWithoutQuotes;
                 }
 
                 catch (IOException e) {

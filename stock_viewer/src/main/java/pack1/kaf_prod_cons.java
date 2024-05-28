@@ -37,7 +37,7 @@ public class kaf_prod_cons {
                                 System.out.println("Producing");
 
                                 String key = String.valueOf(random.nextInt(3));
-                                String message = obj_Fetchstockdetails.fetchStockDetails();
+                                String message = obj_Fetchstockdetails.fetchstockDetails_direct();
                                 
                                 // create a Producer Record
                                 ProducerRecord <String, String> producerRecord = new ProducerRecord<>(topic, key, message);
