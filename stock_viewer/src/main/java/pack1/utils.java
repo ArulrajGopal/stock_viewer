@@ -145,7 +145,7 @@ public class utils {
                                         }
                                 } } );
                         
-                                try {Thread.sleep(2000);} 
+                                try {Thread.sleep(20000);} 
                                 catch (InterruptedException e) {e.printStackTrace();}
 
                         }
