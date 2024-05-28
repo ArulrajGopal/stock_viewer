@@ -1,17 +1,20 @@
 package pack1;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import org.json.JSONObject;
+
 
 public class config {
 
-    public String get_sector_code(String sector) {
-        String json = "{\"pharma\": \"PHARMA\", \"energy\": \"ENERGY\", \"fmcg\": \"FMCG\", \"finservice\": \"FIN%20SERVICE\"}";
+    public static void main(String[] args) throws IOException {
 
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        String result = jsonObject.get(sector).getAsString();
-        return result;
- 
+    String filePath = "stock_viewer/src/main/java/pack1/config.json"; 
+    String content = new String(Files.readAllBytes(Paths.get(filePath)));
+    JSONObject jsonObject = new JSONObject(content);
+
+    System.out.println(jsonObject);
     }
 }
 
