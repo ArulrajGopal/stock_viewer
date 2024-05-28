@@ -18,13 +18,10 @@ public class access_config {
         String content = new String(Files.readAllBytes(Paths.get(filePath)));
         JSONObject jsonObject = new JSONObject(content);
 
-        JSONArray result = jsonObject.getJSONArray(sector);
-
+        JSONArray result = jsonObject.getJSONObject("identifier_list").getJSONArray(sector);          
         return result;
 
-
-    }
-
+     }
 }
 
 

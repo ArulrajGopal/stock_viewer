@@ -1,4 +1,21 @@
-{
-    "BANK": ["ICICIBANKEQN","AXISBANKEQN","SBINEQN"],
-    "AUTO": ["EICHERMOTEQN","TATAMOTORSEQN"]
+{   
+    "identifier_list":{
+        "BANK": ["ICICIBANKEQN","AXISBANKEQN","SBINEQN","IDFCFIRSTBEQN","HDFCBANKEQN"],
+        "ENERGY": ["RELIANCEEQN","ONGCEQN","GAILEQN","COALINDIAEQN","PETRONETEQN"],
+        "FMCG": ["TATACONSUMEQN","GODREJCPEQN","HINDUNILVREQN","COLPALEQN","DABUREQN"],
+        "HEALTHCARE" : ["APOLLOHOSPEQN","RAINBOWEQN","FORTISEQN","DRREDDYEQN","CIPLAEQN"]
+    },
+    "kafka_topics":{
+        "BANK": "bank_tp",
+        "ENERGY": "energy_tp",
+        "FMCG": "fmcg_tp",
+        "HEALTHCARE" : "healthcare_tp"
+    },
+    "dynamodb_table_name":{
+        "BANK": "bank_tbl",
+        "ENERGY": "energy_tbl",
+        "FMCG": "fmcg_tbl",
+        "HEALTHCARE" : "healthcare_tbl"
+    }
+
 }
