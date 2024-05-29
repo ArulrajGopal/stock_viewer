@@ -17,7 +17,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 
-public class CreateLambdaWithDynamoDBTrigger {
+public class create_lambda_with_dynamodb_trigger {
     public static void main(String[] args) throws Exception {
         String functionName = "lambda_function";
         String filePath = "stock_viewer/lambda_function.zip";

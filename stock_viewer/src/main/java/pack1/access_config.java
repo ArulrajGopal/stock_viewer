@@ -17,10 +17,17 @@ public class access_config {
         String filePath = "stock_viewer/src/main/java/pack1/config.json"; 
         String content = new String(Files.readAllBytes(Paths.get(filePath)));
         JSONObject jsonObject = new JSONObject(content);
+        JSONArray result = jsonObject.getJSONObject("identifier_list").getJSONArray(sector);               
+        return result;
+     }
 
-        JSONArray result = jsonObject
-                        .getJSONObject("identifier_list")
-                        .getJSONArray(sector);          
+
+     
+     public String get_topic_name (String sector) throws IOException {
+        String filePath = "stock_viewer/src/main/java/pack1/config.json"; 
+        String content = new String(Files.readAllBytes(Paths.get(filePath)));
+        JSONObject jsonObject = new JSONObject(content);
+        String result = jsonObject.getJSONObject("kafka_topics").getString(sector);
         return result;
 
      }

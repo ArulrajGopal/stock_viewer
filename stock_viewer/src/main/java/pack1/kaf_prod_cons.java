@@ -15,10 +15,11 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.json.JSONArray;
 
 public class kaf_prod_cons {
     
-    public void KafProducer (String topic){
+    public void KafProducer (String sector){
         
                 // create Producer Properties & Setting up properties
                 Properties properties = new Properties();
@@ -29,7 +30,7 @@ public class kaf_prod_cons {
                 // create the Producer
                 KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
                 Random random = new Random();
-                fetchstockdetails obj_Fetchstockdetails = new fetchstockdetails();
+                fetchstockdetails obj_fetchdetails = new fetchstockdetails();
 
                 try {
                         while(true) {
@@ -37,8 +38,12 @@ public class kaf_prod_cons {
                                 System.out.println("Producing");
 
                                 String key = String.valueOf(random.nextInt(3));
-                                String message = obj_Fetchstockdetails.fetchstockDetails_direct();
-                                
+                                JSONArray fetched_data = obj_fetchdetails.fetchstockDetails_for_sector(sector);
+                                String message = fetched_data.toString();
+                                access_config obj = new access_config();
+                                String topic = obj.get_topic_name(sector);
+
+
                                 // create a Producer Record
                                 ProducerRecord <String, String> producerRecord = new ProducerRecord<>(topic, key, message);
 

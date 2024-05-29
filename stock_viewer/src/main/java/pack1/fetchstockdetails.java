@@ -15,12 +15,6 @@ import okhttp3.Response;
 
 public class fetchstockdetails {
 
-    public static void main(String[] args) throws IOException {
-        fetchstockdetails obj = new fetchstockdetails();
-        JSONArray result = obj.fetchstockDetails_for_sector("HEALTHCARE");
-        System.out.println(result);
-
-    }
 
     public JSONArray fetchstockDetails_for_sector (String sector) throws IOException{
 
