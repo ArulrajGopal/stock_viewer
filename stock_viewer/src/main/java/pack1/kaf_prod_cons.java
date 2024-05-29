@@ -120,7 +120,7 @@ public class kaf_prod_cons {
         
                         for (ConsumerRecord<String, String> record: records) {
                         
-                        // obj.load_into_dydb (topic, record.value());
+                        // obj.load_into_dydb (table_name, record.value());
                         System.out.println("Key: " + record.value());
                         System.out.println("Key: " + record.key());
                         System.out.println("Partition: " + record.partition());
