@@ -8,26 +8,13 @@ Steps to start the execution
   
                   zookeeper-server-start.sh ~/kafka_2.13-3.1.0/config/zookeeper.properties
                   kafka-server-start.sh ~/kafka_2.13-3.1.0/config/server.properties
-*    create topics in kafka
-
-                  kafka-topics.sh --bootstrap-server localhost:9092 --topic pharma --create --partitions 3 --replication-factor 1
-                  kafka-topics.sh --bootstrap-server localhost:9092 --topic finservice --create --partitions 3 --replication-factor 1
-                  kafka-topics.sh --bootstrap-server localhost:9092 --topic energy --create --partitions 3 --replication-factor 1
-                  kafka-topics.sh --bootstrap-server localhost:9092 --topic fmcg --create --partitions 3 --replication-factor 1
      
-*    check topic list
-  
-                  kafka-topics.sh --bootstrap-server localhost:9092 --list
-
-*    if required, describe topics and delete topic
-  
-                  kafka-topics.sh --bootstrap-server localhost:9092 --topic topic_name --describe
-                  kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic topic_name
+*   create IAM role for lambda and configure in config.json
      
-*    execute ddl file which creates the below
-        1. Tables in dynamoDB
-        2. IAM role for lambda
-        3. lambda function with dynamoboDB trigger
+*   execute ddl file which creates the below
+        1. kafka topics
+        2. lambda with dynamodb trigger
+        3. tables in dynamodb
         4. SNS topic and subscription
           
 *   execute main java file
