@@ -36,7 +36,7 @@ public class create_kafka_topics {
 
 
          catch (InterruptedException | ExecutionException | TopicExistsException e) {
-            System.out.println("Failed to create topic or topic already exists ");
+            System.out.println(topicName+" - Failed to create topic or topic already exists");
 
         }
      }
