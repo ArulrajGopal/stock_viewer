@@ -89,7 +89,7 @@ public class kaf_prod_cons {
         }
 
 
-        public void KafConsumer(String sector) throws IOException {
+        public void KafConsumer(String sector) {
 
                 String groupId = sector+"_group_id";
          
@@ -107,10 +107,12 @@ public class kaf_prod_cons {
                 // create a consumer
                 KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);               
                 access_config obj_Access_config = new access_config();
-                String topic = obj_Access_config.get_topic_name(sector);
-                
+
                 try {
+                String topic = obj_Access_config.get_topic_name(sector);
                 consumer.subscribe(Arrays.asList(topic));
+
+
                 while (true) {
         
                         System.out.println("Polling");
