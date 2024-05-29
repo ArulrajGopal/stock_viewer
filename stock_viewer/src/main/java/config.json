@@ -11,7 +11,7 @@
         "FMCG": "fmcg_tp",
         "HEALTHCARE" : "healthcare_tp"
     },
-    "dynamodb_table_name":{
+    "dynamodb_table_names":{
         "BANK": "bank_tbl",
         "ENERGY": "energy_tbl",
         "FMCG": "fmcg_tbl",
