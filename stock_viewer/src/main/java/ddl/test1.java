@@ -1,14 +1,14 @@
-package ddl;
+// package ddl;
 
-import java.io.IOException;
+// import java.io.IOException;
 
 
-public class test1 {
+// public class test1 {
 
-    public static void main (String[] args ) throws IOException{
+//     public static void main (String[] args ) {
 
-        access_config_for_ddl obj = new access_config_for_ddl();
-        System.out.println(obj.get_topics_list());
-    }
+//         create_kafka_topics obj = new create_kafka_topics();
+
+//     }
     
-}
+// }
