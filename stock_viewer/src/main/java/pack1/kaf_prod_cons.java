@@ -1,6 +1,5 @@
 package pack1;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
