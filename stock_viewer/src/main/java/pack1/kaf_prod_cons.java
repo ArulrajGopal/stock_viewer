@@ -67,7 +67,7 @@ public class kaf_prod_cons {
                                         }
                                 } } );
                         
-                                try {Thread.sleep(2000);} 
+                                try {Thread.sleep(20000);} 
                                 catch (InterruptedException e) {e.printStackTrace();}
 
                         }
@@ -75,7 +75,7 @@ public class kaf_prod_cons {
 
 
                 catch (Exception e) { 
-                        System.out.println("Unexpected exception in the consumer: "+ e);
+                        System.out.println("Unexpected exception in the producer: "+ e);
                 } 
 
 
