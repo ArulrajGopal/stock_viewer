@@ -1,5 +1,6 @@
 package pack1;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
@@ -88,9 +89,9 @@ public class kaf_prod_cons {
         }
 
 
-        public void KafConsumer(String topic) {
+        public void KafConsumer(String sector) throws IOException {
 
-                String groupId = topic+"_group_id";
+                String groupId = sector+"_group_id";
          
                 // create Producer Properties
                 Properties properties = new Properties();
@@ -104,8 +105,9 @@ public class kaf_prod_cons {
                 properties.setProperty("partition.assignment.strategy", CooperativeStickyAssignor.class.getName());
             
                 // create a consumer
-                KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
-                utils obj = new utils();
+                KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);               
+                access_config obj_Access_config = new access_config();
+                String topic = obj_Access_config.get_topic_name(sector);
                 
                 try {
                 consumer.subscribe(Arrays.asList(topic));
@@ -117,8 +119,8 @@ public class kaf_prod_cons {
         
                         for (ConsumerRecord<String, String> record: records) {
                         
-                        obj.load_into_dydb (topic, record.value());
-                        // System.out.println("Key: " + record.value());
+                        // obj.load_into_dydb (topic, record.value());
+                        System.out.println("Key: " + record.value());
                         System.out.println("Key: " + record.key());
                         System.out.println("Partition: " + record.partition());
                         System.out.println("Offset: " + record.offset());
