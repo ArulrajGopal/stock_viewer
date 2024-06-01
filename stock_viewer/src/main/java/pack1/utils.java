@@ -69,7 +69,7 @@ public class utils {
                                                         .with("per_change_year", per_change_year)
                                                         );
                         
-                                System.out.println("Success");
+                                System.out.println(symbol+" appeneded in "+table_name+" successfully!!!");
 
                         }
 
