@@ -106,9 +106,11 @@ public class kaf_prod_cons {
                 // create a consumer
                 KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);               
                 access_config obj_Access_config = new access_config();
+                utils obj_util = new utils();
 
                 try {
                 String topic = obj_Access_config.get_topic_name(sector);
+                String table_name = obj_Access_config.get_table_name(sector);
                 consumer.subscribe(Arrays.asList(topic));
 
 
@@ -120,8 +122,8 @@ public class kaf_prod_cons {
         
                         for (ConsumerRecord<String, String> record: records) {
                         
-                        // obj.load_into_dydb (table_name, record.value());
-                        System.out.println("Key: " + record.value());
+                        obj_util.load_into_dydb (table_name, record.value());
+                        // System.out.println("Key: " + record.value());
                         System.out.println("Key: " + record.key());
                         System.out.println("Partition: " + record.partition());
                         System.out.println("Offset: " + record.offset());

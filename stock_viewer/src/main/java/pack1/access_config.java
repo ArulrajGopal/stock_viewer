@@ -31,6 +31,16 @@ public class access_config {
         return result;
 
      }
+
+          
+     public String get_table_name (String sector) throws IOException {
+      String filePath = "stock_viewer/src/main/java/config.json"; 
+      String content = new String(Files.readAllBytes(Paths.get(filePath)));
+      JSONObject jsonObject = new JSONObject(content);
+      String result = jsonObject.getJSONObject("dynamodb_table_names").getString(sector);
+      return result;
+
+   }
 }
 
 

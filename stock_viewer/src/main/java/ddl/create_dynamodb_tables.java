@@ -43,7 +43,7 @@ public class create_dynamodb_tables {
                     .attributeDefinitions(
                             AttributeDefinition.builder()
                                     .attributeName(partition_key)
-                                    .attributeType(ScalarAttributeType.S)
+                                    .attributeType(ScalarAttributeType.N)
                                     .build())
                     .keySchema(
                             KeySchemaElement.builder()
