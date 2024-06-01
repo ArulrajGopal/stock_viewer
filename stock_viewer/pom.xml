@@ -69,6 +69,12 @@
       <version>4.9.3</version>
     </dependency>
 
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>sns</artifactId>
+      <version>2.20.0</version>
+    </dependency>
+
     <!-- Copied from ChatGpt for dynamodb trigger -->
     <dependency>
         <groupId>com.amazonaws</groupId>
