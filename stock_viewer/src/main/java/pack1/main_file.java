@@ -3,11 +3,23 @@ package pack1;
 
 class MyThread extends Thread {
     private String parameter;
-    kaf_prod_cons obj = new kaf_prod_cons();
+    static kaf_prod_cons obj = new kaf_prod_cons();
 
     public MyThread(String parameter) {
         this.parameter = parameter;
     }
+
+
+    public static void run_kafka(String Kafka_component, String sector) {
+        if (Kafka_component == "producer") {
+            obj.KafProducer(sector);
+        }
+        else if (Kafka_component == "consumer") {
+            obj.KafProducer(sector);
+        }
+    }
+
+
 
     public void run() {
 
@@ -23,6 +35,9 @@ class MyThread extends Thread {
     }
 
 }
+
+
+
 
 public class main_file {
     public static void main(String[] args) {
