@@ -67,7 +67,7 @@ public class kaf_prod_cons {
                                         }
                                 } } );
                         
-                                try {Thread.sleep(20000);} 
+                                try {Thread.sleep(10000);} 
                                 catch (InterruptedException e) {e.printStackTrace();}
 
                         }
