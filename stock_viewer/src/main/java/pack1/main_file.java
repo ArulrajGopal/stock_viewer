@@ -33,19 +33,19 @@ public class main_file {
         MyThread thread2 = new MyThread("consumer","BANK");
         MyThread thread3 = new MyThread("producer","ENERGY");
         MyThread thread4 = new MyThread("consumer","ENERGY");
-        // MyThread thread5 = new MyThread("producer_fmcg");
-        // MyThread thread6 = new MyThread("consumer_fmcg");
-        // MyThread thread7 = new MyThread("producer_healthcare");
-        // MyThread thread8 = new MyThread("consumer_healthcare");
+        MyThread thread5 = new MyThread("producer","fmcg");
+        MyThread thread6 = new MyThread("consumer","fmcg");
+        MyThread thread7 = new MyThread("producer","healthcare");
+        MyThread thread8 = new MyThread("consumer","healthcare");
 
 
         thread1.start();
         thread2.start();
         thread3.start();
         thread4.start();
-        // thread5.start();
-        // thread6.start();
-        // thread7.start();
-        // thread8.start();
+        thread5.start();
+        thread6.start();
+        thread7.start();
+        thread8.start();
     }
 }
