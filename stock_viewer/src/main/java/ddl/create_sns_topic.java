@@ -9,7 +9,7 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 public class create_sns_topic {
     public static void main(String[] args) {
 
-        String topicName = "MyTopic2";
+        String topicName = "MyTopic3";
         SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
         try {
