@@ -33,10 +33,10 @@ public class main_file {
         MyThread thread2 = new MyThread("consumer","BANK");
         MyThread thread3 = new MyThread("producer","ENERGY");
         MyThread thread4 = new MyThread("consumer","ENERGY");
-        MyThread thread5 = new MyThread("producer","fmcg");
-        MyThread thread6 = new MyThread("consumer","fmcg");
-        MyThread thread7 = new MyThread("producer","healthcare");
-        MyThread thread8 = new MyThread("consumer","healthcare");
+        MyThread thread5 = new MyThread("producer","FMCG");
+        MyThread thread6 = new MyThread("consumer","FMCG");
+        MyThread thread7 = new MyThread("producer","HEALTHCARE");
+        MyThread thread8 = new MyThread("consumer","HEALTHCARE");
 
 
         thread1.start();
