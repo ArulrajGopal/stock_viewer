@@ -12,9 +12,13 @@ Steps to start the execution
 *   create IAM role for lambda and configure in config.json
      
 *   execute ddl file which creates the below
+
         1. kafka topics
-        2. lambda with dynamodb trigger
-        3. tables in dynamodb
+
+        2. tables in dynamodb
+    
+        3. lambda with dynamodb trigger
+    
         4. SNS topic and subscription
           
 *   execute main java file
