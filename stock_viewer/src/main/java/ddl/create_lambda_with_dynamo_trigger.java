@@ -1,4 +1,4 @@
-package group1;
+package ddl;
 
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
@@ -58,7 +58,7 @@ public class create_lambda_with_dynamo_trigger {
 
         try {
 
-        String pythonFilePath = "src\\main\\python\\group2\\lambda_function.py";
+        String pythonFilePath = "stock_viewer/src/main/python/lambda_function.py";
 
         // Read the Python file into a byte array
         FileInputStream fis = new FileInputStream(pythonFilePath);
