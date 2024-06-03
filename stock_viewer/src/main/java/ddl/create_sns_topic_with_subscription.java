@@ -26,10 +26,9 @@ public class create_sns_topic_with_subscription {
                 String topic = (String) element;
                 SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
 
-                createSnsTopic (snsClient, topic);
-                // subEmail(snsClient, sector, email);
+                String topic_arn = createSnsTopic (snsClient, topic);
+                subEmail(snsClient, topic_arn, email);
                 snsClient.close();
-                break;
 
             }
         }
@@ -39,7 +38,7 @@ public class create_sns_topic_with_subscription {
         }
 
 
-	public static void createSnsTopic(SnsClient snsClient, String topic) {
+	public static String createSnsTopic(SnsClient snsClient, String topic) {
         
 
 		try {
@@ -49,38 +48,35 @@ public class create_sns_topic_with_subscription {
 
             CreateTopicResponse result = snsClient.createTopic(request);
             System.out.println(result.topicArn()+" created successfully");
+            return result.topicArn();
 
         }
         catch (Exception e) {
             System.out.println("Failed to create sns topic or topic already exists");
+            return null;
         }
 }
 
 
-//     public static void subEmail(SnsClient snsClient, String topicArn, String email) {
-//         try {
+    public static void subEmail(SnsClient snsClient, String topicArn, String email) {
+        try {
 
-//             String topicArn = "arn:aws:sns:us-east-1:042488648100:MyTopic3";
+            SubscribeRequest request = SubscribeRequest.builder()
+                    .protocol("email")
+                    .endpoint(email)
+                    .returnSubscriptionArn(true)
+                    .topicArn(topicArn)
+                    .build();
 
+            SubscribeResponse result = snsClient.subscribe(request);
+            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status is "
+                    + result.sdkHttpResponse().statusCode());
 
-//             SubscribeRequest request = SubscribeRequest.builder()
-//                     .protocol("email")
-//                     .endpoint(email)
-//                     .returnSubscriptionArn(true)
-//                     .topicArn(topicArn)
-//                     .build();
-
-//             SubscribeResponse result = snsClient.subscribe(request);
-//             System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status is "
-//                     + result.sdkHttpResponse().statusCode());
-
-//         } catch (SnsException e) {
-//             System.err.println(e.awsErrorDetails().errorMessage());
-//             System.exit(1);
-//         }
-// }   
-
-
+        } 
+        catch (Exception e) {
+            System.out.println("Failed to subscribe or already subscribed");
+        }
+}   
 }
 
 
