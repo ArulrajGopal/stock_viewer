@@ -18,20 +18,22 @@ public class create_sns_topic_with_subscription {
 
         try {
             access_config_for_ddl access_con_obj = new access_config_for_ddl();
-            JSONArray topics_list = access_con_obj.get_sns_topic();
-            System.out.println(topics_list);
+            JSONArray sns_topics_list = access_con_obj.get_sns_topic();
+            
 
+            for (Object element : sns_topics_list) {
 
-            // SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
+                String topic = (String) element;
 
-            // String sector = "BANK";
-            // String email = "arulrajgopal@outlook.com";
+                SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
+                // String email = "arulrajgopal@outlook.com";
 
-            // createSnsTopic (sector);
-            // subEmail(snsClient, sector, email);
-            // snsClient.close();
-        
+                createSnsTopic (snsClient, topic);
+                // subEmail(snsClient, sector, email);
+                snsClient.close();
+                break;
 
+            }
         }
         catch (Exception e) {
             System.out.println("Failed to create sns topic or topic already exists");
@@ -39,27 +41,23 @@ public class create_sns_topic_with_subscription {
         }
 
 
-
-
-
-	
-// 	public static void createSnsTopic(String sector) {
+	public static void createSnsTopic(SnsClient snsClient, String topic) {
         
 
-// 		try {
-//             CreateTopicRequest request = CreateTopicRequest.builder()
-//                     .name(topicName)
-//                     .build();
+		try {
+            CreateTopicRequest request = CreateTopicRequest.builder()
+                    .name(topic)
+                    .build();
 
-//             CreateTopicResponse result = snsClient.createTopic(request);
-//             System.out.println(result.topicArn());
+            CreateTopicResponse result = snsClient.createTopic(request);
+            System.out.println(result.topicArn());
 
 
-//         } catch (SnsException e) {
-//             System.err.println(e.awsErrorDetails().errorMessage());
-//             System.exit(1);
-//         }
-// }
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+}
 
 
 //     public static void subEmail(SnsClient snsClient, String topicArn, String email) {
