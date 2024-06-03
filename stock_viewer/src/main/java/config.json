@@ -24,6 +24,14 @@
         "HEALTHCARE" : "healthcare_snstp"
         
     },
+
+    "lambda_func_names":{
+        "BANK": "bank_lam",
+        "ENERGY": "energy_lam",
+        "FMCG": "fmcg_lam",
+        "HEALTHCARE" : "healthcare_lam"
+        
+    },
     "iam_role_for_lambda":"arn:aws:iam::042488648100:role/arulraj_lambda_role",
     "sns_subscribe_mail_id":"arulrajgopal@outlook.com"
 }

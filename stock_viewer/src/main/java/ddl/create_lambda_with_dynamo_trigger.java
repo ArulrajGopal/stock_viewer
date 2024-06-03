@@ -15,46 +15,67 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import java.io.*;
 import java.util.zip.*;
 
+import org.json.JSONArray;
+
 public class create_lambda_with_dynamo_trigger {
         public static void main(String[] args) throws Exception {
-                String functionName = "lambda_function";
-                String handler = "lambda_function.lambda_handler";
-                String role = "arn:aws:iam::042488648100:role/arulraj_lambda_role";
-                String tableName = "test_tbl";
+                try {
+                        access_config_for_ddl access_con_obj = new access_config_for_ddl();
+                        JSONArray lambda_func_list = access_con_obj.get_lambda_functions();
+                        String role = access_con_obj.get_iam_role();
+                        Region region = Region.US_EAST_1;
 
-                Region region = Region.US_EAST_1;
-                LambdaClient lambdaClient = LambdaClient.builder()
-                        .region(region)
-                        .build();
+                        LambdaClient lambdaClient = LambdaClient.builder()
+                                                                .region(region)
+                                                                .build();
 
-                DynamoDbClient dynamoDbClient = DynamoDbClient.builder()
-                        .region(region)
-                        .build();
+                        DynamoDbClient dynamoDbClient = DynamoDbClient.builder()
+                                                                .region(region)
+                                                                .build();
+
+                        for (Object element : lambda_func_list) {
+
+                                String func_name = (String) element;
+
+                                String functionName = "lambda_function";
+                                String handler = "lambda_function.lambda_handler";
+                                String tableName = "test_tbl";
+                
+                                
+                                // read python file into bytes
+                                byte[] lambdaFunctionBytes = readPythonToByte(filename);
+                
+                                // Enable DynamoDB Streams on the table
+                                enableDynamoDBStream(dynamoDbClient, tableName);
+                
+                                // Get the Stream ARN for the table
+                                String streamArn = getStreamArn(dynamoDbClient, tableName);
+                
+                                // Create the Lambda function
+                                createLambdaFunction(lambdaClient, functionName, lambdaFunctionBytes, role, handler);
+                
+                                // Create the event source mapping
+                                createEventSourceMapping(lambdaClient, functionName, streamArn);
+                
+  
+
+                        }
+
+                        lambdaClient.close();
+                        dynamoDbClient.close();
+
+                }
+                catch (Exception e) {
+                        System.out.println("Failed to create sns topic or subscribe: ");
+                }
 
 
-                // read python file into bytes
-                byte[] lambdaFunctionBytes = readPythonToByte();
-
-                // Enable DynamoDB Streams on the table
-                enableDynamoDBStream(dynamoDbClient, tableName);
-
-                // Get the Stream ARN for the table
-                String streamArn = getStreamArn(dynamoDbClient, tableName);
-
-                // Create the Lambda function
-                createLambdaFunction(lambdaClient, functionName, lambdaFunctionBytes, role, handler);
-
-                // Create the event source mapping
-                createEventSourceMapping(lambdaClient, functionName, streamArn);
-
-                lambdaClient.close();
-                dynamoDbClient.close();
         }
     
 
 
 
-    private static byte[] readPythonToByte() {
+    private static byte[] readPythonToByte(String filename) {
 
         try {
 
@@ -76,7 +97,7 @@ public class create_lambda_with_dynamo_trigger {
         ZipOutputStream zipOut = new ZipOutputStream(byteArrayOutputStream);
 
         // Create a new ZIP entry for the Python file
-        ZipEntry zipEntry = new ZipEntry("lambda_function.py");
+        ZipEntry zipEntry = new ZipEntry(filename);
         zipOut.putNextEntry(zipEntry);
 
         // Write the Python file bytes to the ZIP entry
