@@ -21,8 +21,8 @@ Steps to start the execution
 
 *    start zookeeper and kafka
   
-                  zookeeper-server-start.sh ~/kafka_2.13-3.1.0/config/zookeeper.properties
-                  kafka-server-start.sh ~/kafka_2.13-3.1.0/config/server.properties
+            zookeeper-server-start.sh ~/kafka_2.13-3.1.0/config/zookeeper.properties
+            kafka-server-start.sh ~/kafka_2.13-3.1.0/config/server.properties
      
 *   create IAM role for lambda and configure in config.json
      
