@@ -39,18 +39,17 @@ public class create_lambda_with_dynamo_trigger {
 
                                 String handler = func_name+".lambda_handler";
                                 String filename = func_name+".py";
-                                String tableName = "test_tbl";
-                                bank_lam
-                
+                                String table_name = func_name.split("_")[0]+"_tbl";
+
                                 
                                 // read python file into bytes
                                 byte[] lambdaFunctionBytes = readPythonToByte(filename);
                 
                                 // Enable DynamoDB Streams on the table
-                                enableDynamoDBStream(dynamoDbClient, tableName);
+                                enableDynamoDBStream(dynamoDbClient, table_name);
                 
                                 // Get the Stream ARN for the table
-                                String streamArn = getStreamArn(dynamoDbClient, tableName);
+                                String streamArn = getStreamArn(dynamoDbClient, table_name);
                 
                                 // Create the Lambda function
                                 createLambdaFunction(lambdaClient, func_name, lambdaFunctionBytes, role, handler);
