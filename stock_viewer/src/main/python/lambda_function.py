@@ -6,8 +6,8 @@ def lambda_handler(event, context):
         if event ["Records"][0]["eventName"]=="INSERT":
 
             #extracting message from the event
-            output = event["Records"][0]["dynamodb"]["NewImage"]
-            message = str(output)
+            new_image = event["Records"][0]["dynamodb"]["NewImage"]
+            message = "As of "+str(new_image["lastUpdateTime"])+" , the "+ new_image["symbol"].lower() +" stock was trading at "+ str(new_image["lastPrice"]) + " INR"
 
             # developing topic_arn with event
             eventSourceARN = event["Records"][0]["eventSourceARN"]
@@ -22,7 +22,7 @@ def lambda_handler(event, context):
             
             client = boto3.client("sns")
             result = client.publish(TopicArn=sns_topic_arn, Message=message, Subject=subject)
-            print(event)
+            print(message)
             print("Notification send successfully..!!!!!")
 
     except Exception as e:
