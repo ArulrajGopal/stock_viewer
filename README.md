@@ -1,9 +1,24 @@
 Steps to start the execution
 ============================
 *    spin up linux machine
-*    install java, Kafka(configure bashrc), install awscli(configure accesskeys)
+*    install java
+                  sudo apt-get install openjdk-11-jdk
+                  java --version
 
-                  PATH="$PATH:~/kafka_2.13-3.1.0/bin"
+*   install kafka and configure bashrc
+
+            PATH="$PATH:~/kafka_2.13-3.1.0/bin"
+
+*   install awscli(configure accesskeys)
+
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+
+            aws --version
+
+            aws configure
+
 *    start zookeeper and kafka
   
                   zookeeper-server-start.sh ~/kafka_2.13-3.1.0/config/zookeeper.properties
