@@ -65,8 +65,7 @@ public class create_sns_topic_with_subscription {
                     .build();
 
             SubscribeResponse result = snsClient.subscribe(request);
-            System.out.println("Subscription ARN: " + result.subscriptionArn() + "\n\n Status is "
-                    + result.sdkHttpResponse().statusCode());
+            System.out.println(result.subscriptionArn()+" created successfully");
 
         } 
         catch (Exception e) {
