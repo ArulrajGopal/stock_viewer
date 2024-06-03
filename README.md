@@ -19,11 +19,9 @@ Steps to start the execution
 
         2. create dynamodb tables 
 
-        3. create sns topic 
+        3. create sns topic and subscribe it
 
-        4. create subscription 
-
-        5. create lambda and evert source mapping with dyanmodb 
+        4. create lambda and evert source mapping with dyanmodb 
         
           
 *   execute main java file
