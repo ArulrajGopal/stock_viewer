@@ -23,5 +23,7 @@
         "FMCG": "fmcg_snstp",
         "HEALTHCARE" : "healthcare_snstp"
         
-    }
+    },
+    "iam_role_for_lambda":"arn:aws:iam::042488648100:role/arulraj_lambda_role",
+    "sns_subscribe_mail_id":"arulrajgopal@outlook.com"
 }

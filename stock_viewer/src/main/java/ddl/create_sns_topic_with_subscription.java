@@ -19,14 +19,12 @@ public class create_sns_topic_with_subscription {
         try {
             access_config_for_ddl access_con_obj = new access_config_for_ddl();
             JSONArray sns_topics_list = access_con_obj.get_sns_topic();
-            
+            String email = access_con_obj.get_mail_id();
 
             for (Object element : sns_topics_list) {
 
                 String topic = (String) element;
-
                 SnsClient snsClient = SnsClient.builder().region(Region.US_EAST_1).build();
-                // String email = "arulrajgopal@outlook.com";
 
                 createSnsTopic (snsClient, topic);
                 // subEmail(snsClient, sector, email);
@@ -36,7 +34,7 @@ public class create_sns_topic_with_subscription {
             }
         }
         catch (Exception e) {
-            System.out.println("Failed to create sns topic or topic already exists");
+            System.out.println("Failed to create sns topic or subscribe: ");
             }
         }
 
@@ -50,12 +48,11 @@ public class create_sns_topic_with_subscription {
                     .build();
 
             CreateTopicResponse result = snsClient.createTopic(request);
-            System.out.println(result.topicArn());
+            System.out.println(result.topicArn()+" created successfully");
 
-
-        } catch (SnsException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+        }
+        catch (Exception e) {
+            System.out.println("Failed to create sns topic or topic already exists");
         }
 }
 

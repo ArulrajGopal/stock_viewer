@@ -59,6 +59,17 @@ public class access_config_for_ddl {
 
     }
 
+    public String get_mail_id() throws IOException {
+
+        String filePath = "stock_viewer/src/main/java/config.json"; 
+        String content = new String(Files.readAllBytes(Paths.get(filePath)));
+        JSONObject jsonObject = new JSONObject(content);
+        String result = jsonObject.getString("sns_subscribe_mail_id"); 
+
+        return result;
+
+    }
+
 
 
 }
