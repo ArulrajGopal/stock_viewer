@@ -15,15 +15,15 @@ Steps to start the execution
     In order to run the below files, arugments already configured in config.json file.
     In case of arguments change, change only in config.json file
 
-        1. creat kafka topics >>
+        1. creat kafka topics 
 
-        2. create dynamodb tables >>
+        2. create dynamodb tables 
     
-        3. create sns topic >>
+        3. create sns topic 
 
-        4. create subscription >>
+        4. create subscription 
     
-        5. create lambda and evert source mapping with dyanmodb >> 
+        5. create lambda and evert source mapping with dyanmodb 
           
 *   execute main java file
 
