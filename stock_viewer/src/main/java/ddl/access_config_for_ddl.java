@@ -43,6 +43,22 @@ public class access_config_for_ddl {
 
     }
 
+    public JSONArray get_sns_topic () throws IOException {
+
+        String filePath = "stock_viewer/src/main/java/config.json"; 
+        String content = new String(Files.readAllBytes(Paths.get(filePath)));
+        JSONObject jsonObject = new JSONObject(content);
+        JSONObject result = jsonObject.getJSONObject("sns_topic_names"); 
+
+        JSONArray tbls_array = new JSONArray();
+        
+        for (String key : result.keySet()) {
+            tbls_array.put(result.get(key));
+         }
+        return tbls_array;
+
+    }
+
 
 
 }

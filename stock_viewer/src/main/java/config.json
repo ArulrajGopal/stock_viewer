@@ -16,6 +16,12 @@
         "ENERGY": "energy_tbl",
         "FMCG": "fmcg_tbl",
         "HEALTHCARE" : "healthcare_tbl"
+    },
+    "sns_topic_names":{
+        "BANK": "bank_snstp",
+        "ENERGY": "energy_snstp",
+        "FMCG": "fmcg_snstp",
+        "HEALTHCARE" : "healthcare_snstp"
+        
     }
-
 }
