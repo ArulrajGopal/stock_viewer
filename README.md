@@ -2,6 +2,7 @@ Steps to start the execution
 ============================
 *    spin up linux machine
 *    install java
+  
                   sudo apt-get install openjdk-11-jdk
                   java --version
 
