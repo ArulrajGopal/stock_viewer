@@ -13,12 +13,19 @@ Steps to start the execution
      
 *   execute below files in the same order which is data definintion language.
     In order to run the below files, arugments already configured in config.json file.
+
     In case of arguments change, change only in config.json file
+
         1. creat kafka topics 
+
         2. create dynamodb tables 
+
         3. create sns topic 
+
         4. create subscription 
+
         5. create lambda and evert source mapping with dyanmodb 
+        
           
 *   execute main java file
 
