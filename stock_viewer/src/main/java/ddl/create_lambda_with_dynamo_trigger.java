@@ -37,9 +37,10 @@ public class create_lambda_with_dynamo_trigger {
 
                                 String func_name = (String) element;
 
-                                String functionName = "lambda_function";
-                                String handler = "lambda_function.lambda_handler";
+                                String handler = func_name+".lambda_handler";
+                                String filename = func_name+".py";
                                 String tableName = "test_tbl";
+                                bank_lam
                 
                                 
                                 // read python file into bytes
@@ -52,10 +53,10 @@ public class create_lambda_with_dynamo_trigger {
                                 String streamArn = getStreamArn(dynamoDbClient, tableName);
                 
                                 // Create the Lambda function
-                                createLambdaFunction(lambdaClient, functionName, lambdaFunctionBytes, role, handler);
+                                createLambdaFunction(lambdaClient, func_name, lambdaFunctionBytes, role, handler);
                 
                                 // Create the event source mapping
-                                createEventSourceMapping(lambdaClient, functionName, streamArn);
+                                createEventSourceMapping(lambdaClient, func_name, streamArn);
                 
   
 
