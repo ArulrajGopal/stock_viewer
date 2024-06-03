@@ -15,13 +15,13 @@ Steps to start the execution
     No need to change arugments, because already configured in config.json file.
     In case of arguments change, do change in config.json file
 
-        1. creat kafka topics 
+        1. create kafka topics 
 
         2. create dynamodb tables 
 
         3. create sns topic and subscribe it
 
-        4. create lambda and evert source mapping with dyanmodb 
+        4. create lambda and map it through dynamodb using event source mapping
         
           
 *   execute main java file
