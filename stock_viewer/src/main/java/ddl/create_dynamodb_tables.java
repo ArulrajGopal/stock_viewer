@@ -13,6 +13,8 @@ import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
+import software.amazon.awssdk.services.dynamodb.model.StreamSpecification;
+import software.amazon.awssdk.services.dynamodb.model.UpdateTableRequest;
 
 
 public class create_dynamodb_tables {
@@ -31,6 +33,7 @@ public class create_dynamodb_tables {
 
             String tbl_name = (String) tbl;
             createTable(ddb, tbl_name, partition_key);
+            enableDynamoDBStream(ddb, tbl_name);
 
         }
 
@@ -65,4 +68,27 @@ public class create_dynamodb_tables {
             System.out.println(e.getMessage());
         }
     }
+
+        private static void enableDynamoDBStream(DynamoDbClient dynamoDbClient, String tableName) {
+
+        try {
+                StreamSpecification streamSpecification = StreamSpecification.builder()
+                        .streamEnabled(true)
+                        .streamViewType("NEW_AND_OLD_IMAGES")
+                        .build();
+
+                UpdateTableRequest updateTableRequest = UpdateTableRequest.builder()
+                        .tableName(tableName)
+                        .streamSpecification(streamSpecification)
+                        .build();
+
+                dynamoDbClient.updateTable(updateTableRequest);
+                System.out.println("DynamoDB Streams enabled on table " + tableName);
+
+        }
+        catch (DynamoDbException e){
+                System.out.println("Table already has an enabled stream");
+        }
+}
+
 }

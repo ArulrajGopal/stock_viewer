@@ -3,15 +3,13 @@ package ddl;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.StreamSpecification;
-import software.amazon.awssdk.services.dynamodb.model.UpdateTableRequest;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.services.lambda.model.CreateEventSourceMappingRequest;
 import software.amazon.awssdk.services.lambda.model.CreateFunctionRequest;
 import software.amazon.awssdk.services.lambda.model.FunctionCode;
 import software.amazon.awssdk.services.lambda.model.Runtime;
 import software.amazon.awssdk.services.lambda.model.ResourceConflictException;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+
 import java.io.*;
 import java.util.zip.*;
 
@@ -44,9 +42,6 @@ public class create_lambda_with_dynamo_trigger {
                                 
                                 // read python file into bytes
                                 byte[] lambdaFunctionBytes = readPythonToByte(filename);
-                
-                                // Enable DynamoDB Streams on the table
-                                enableDynamoDBStream(dynamoDbClient, table_name);
                 
                                 // Get the Stream ARN for the table
                                 String streamArn = getStreamArn(dynamoDbClient, table_name);
@@ -117,34 +112,6 @@ public class create_lambda_with_dynamo_trigger {
             return null;
         }
     }
-
-
-
-
-    private static void enableDynamoDBStream(DynamoDbClient dynamoDbClient, String tableName) {
-
-        try {
-                StreamSpecification streamSpecification = StreamSpecification.builder()
-                        .streamEnabled(true)
-                        .streamViewType("NEW_AND_OLD_IMAGES")
-                        .build();
-
-                UpdateTableRequest updateTableRequest = UpdateTableRequest.builder()
-                        .tableName(tableName)
-                        .streamSpecification(streamSpecification)
-                        .build();
-
-                dynamoDbClient.updateTable(updateTableRequest);
-                System.out.println("DynamoDB Streams enabled on table " + tableName);
-
-        }
-        catch (DynamoDbException e){
-                System.out.println("Table already has an enabled stream");
-        }
-
-
-    }
-
 
 
 
