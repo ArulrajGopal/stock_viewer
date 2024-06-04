@@ -110,7 +110,7 @@ public class kaf_prod_cons {
 
                 try {
                 String topic = obj_Access_config.get_topic_name(sector);
-                String table_name = obj_Access_config.get_table_name(sector);
+                String table_name = sector+"_tbl";
                 consumer.subscribe(Arrays.asList(topic));
 
 
