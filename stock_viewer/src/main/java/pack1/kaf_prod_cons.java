@@ -35,7 +35,7 @@ public class kaf_prod_cons {
                 try {
                         while(true) {
 
-                                System.out.println("Producing");
+                                System.out.println(sector+" Producing");
 
                                 String key = String.valueOf(random.nextInt(3));
                                 JSONArray fetched_data = obj_fetchdetails.fetchstockDetails_for_sector(sector);
@@ -67,7 +67,7 @@ public class kaf_prod_cons {
                                         }
                                 } } );
                         
-                                try {Thread.sleep(10000);} 
+                                try {Thread.sleep(20000);} 
                                 catch (InterruptedException e) {e.printStackTrace();}
 
                         }
@@ -118,7 +118,7 @@ public class kaf_prod_cons {
         
                         System.out.println("Polling");
         
-                        ConsumerRecords<String, String> records =  consumer.poll(Duration.ofMillis(1000));
+                        ConsumerRecords<String, String> records =  consumer.poll(Duration.ofMillis(20000));
         
                         for (ConsumerRecord<String, String> record: records) {
                         
