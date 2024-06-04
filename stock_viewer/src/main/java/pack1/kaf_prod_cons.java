@@ -67,7 +67,7 @@ public class kaf_prod_cons {
                                         }
                                 } } );
                         
-                                try {Thread.sleep(20000);} 
+                                try {Thread.sleep(40000);} 
                                 catch (InterruptedException e) {e.printStackTrace();}
 
                         }
@@ -110,7 +110,7 @@ public class kaf_prod_cons {
 
                 try {
                 String topic = obj_Access_config.get_topic_name(sector);
-                String table_name = sector+"_tbl";
+                String table_name = sector.toLowerCase()+"_tbl";
                 consumer.subscribe(Arrays.asList(topic));
 
 
@@ -118,7 +118,7 @@ public class kaf_prod_cons {
         
                         System.out.println(sector+" Polling");
         
-                        ConsumerRecords<String, String> records =  consumer.poll(Duration.ofMillis(20000));
+                        ConsumerRecords<String, String> records =  consumer.poll(Duration.ofMillis(40000));
         
                         for (ConsumerRecord<String, String> record: records) {
                         
