@@ -69,8 +69,9 @@ public class fetchstockdetails {
     public String fetchStockDetails_through_aws_api_gateway () {
         try {
             OkHttpClient client = new OkHttpClient();
+            
 
-            String url = "https://qmxqg0gnxh.execute-api.us-east-1.amazonaws.com/prod/myresource";
+            String url = "https://gyusunzzhj.execute-api.us-east-1.amazonaws.com/prod/myresource";
             Request request = new Request.Builder()
                                     .url(url)
                                     .build();
