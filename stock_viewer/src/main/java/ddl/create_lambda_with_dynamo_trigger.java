@@ -61,7 +61,7 @@ public class create_lambda_with_dynamo_trigger {
 
                 }
                 catch (Exception e) {
-                        System.out.println("Failed to create sns topic or subscribe: ");
+                        System.out.println("Failed to lambda function or failed at mapping : "+e);
                 }
 
 
@@ -107,16 +107,25 @@ public class create_lambda_with_dynamo_trigger {
 
         return zipFileBytes;
         
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+        } 
+        catch (Exception e) {
+                System.out.println("convert python file into byte : "+e);
+                return null;
         }
     }
 
 
 
     private static String getStreamArn(DynamoDbClient dynamoDbClient, String tableName) {
-        return dynamoDbClient.describeTable(r -> r.tableName(tableName)).table().latestStreamArn();
+
+        try {
+                return dynamoDbClient.describeTable(r -> r.tableName(tableName)).table().latestStreamArn();
+        }
+        catch (Exception e) {
+                System.out.println("failed at getting stream arn : "+e);
+                return null;
+        }
+        
     }
 
 
@@ -146,9 +155,11 @@ public class create_lambda_with_dynamo_trigger {
     
                 lambdaClient.createFunction(functionRequest);
                 System.out.println("Lambda function created: " + functionName);
-            } catch (ResourceConflictException e) {
-                System.out.println("Lambda function already exists");
-            }
+            } 
+        catch (Exception e) {
+                System.out.println("failed at creating lambda function : "+e);
+
+        }
 
     }
 
@@ -164,10 +175,9 @@ public class create_lambda_with_dynamo_trigger {
                 lambdaClient.createEventSourceMapping(eventSourceMappingRequest);
                 System.out.println("Event source mapping created for function: " + functionName);
         }
-        catch (ResourceConflictException e) {
+        catch (Exception e) {
+                System.out.println("failed at event source mapping : "+e);
 
-                System.out.println("EventSourceMapping already exists");
-                
         }
 
     }
