@@ -27,19 +27,14 @@ public class access_config_for_ddl {
         return topics_array;
      }
 
-    public JSONArray get_tables_list () throws IOException {
+    public JSONArray get_sectors_list () throws IOException {
 
         String filePath = "stock_viewer/src/main/java/config.json"; 
         String content = new String(Files.readAllBytes(Paths.get(filePath)));
         JSONObject jsonObject = new JSONObject(content);
-        JSONObject result = jsonObject.getJSONObject("dynamodb_table_names"); 
+        JSONArray result = jsonObject.getJSONArray("sectors"); 
 
-        JSONArray tbls_array = new JSONArray();
-        
-        for (String key : result.keySet()) {
-            tbls_array.put(result.get(key));
-         }
-        return tbls_array;
+        return result;
 
     }
 
@@ -49,22 +44,6 @@ public class access_config_for_ddl {
         String content = new String(Files.readAllBytes(Paths.get(filePath)));
         JSONObject jsonObject = new JSONObject(content);
         JSONObject result = jsonObject.getJSONObject("sns_topic_names"); 
-
-        JSONArray tbls_array = new JSONArray();
-        
-        for (String key : result.keySet()) {
-            tbls_array.put(result.get(key));
-         }
-        return tbls_array;
-
-    }
-
-    public JSONArray get_lambda_functions() throws IOException {
-
-        String filePath = "stock_viewer/src/main/java/config.json"; 
-        String content = new String(Files.readAllBytes(Paths.get(filePath)));
-        JSONObject jsonObject = new JSONObject(content);
-        JSONObject result = jsonObject.getJSONObject("lambda_func_names"); 
 
         JSONArray tbls_array = new JSONArray();
         

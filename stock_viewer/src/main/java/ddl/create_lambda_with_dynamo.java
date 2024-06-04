@@ -3,6 +3,15 @@ package ddl;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
+import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
+import software.amazon.awssdk.services.dynamodb.model.KeyType;
+import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
+import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
+import software.amazon.awssdk.services.dynamodb.model.StreamSpecification;
+import software.amazon.awssdk.services.dynamodb.model.UpdateTableRequest;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.services.lambda.model.CreateEventSourceMappingRequest;
 import software.amazon.awssdk.services.lambda.model.CreateFunctionRequest;
@@ -17,44 +26,38 @@ import java.util.zip.*;
 
 import org.json.JSONArray;
 
-public class create_lambda_with_dynamo_trigger {
+public class create_lambda_with_dynamo {
         public static void main(String[] args) throws Exception {
                 try {
                         access_config_for_ddl access_con_obj = new access_config_for_ddl();
-                        JSONArray lambda_func_list = access_con_obj.get_lambda_functions();
+                        JSONArray sector_list = access_con_obj.get_sectors_list();
                         String role = access_con_obj.get_iam_role();
                         Region region = Region.US_EAST_1;
+                        
+                        String partition_key = "primary_id";
 
-                        LambdaClient lambdaClient = LambdaClient.builder()
-                                                                .region(region)
-                                                                .build();
+                        LambdaClient lambdaClient = LambdaClient.builder().region(region).build();
+                        DynamoDbClient dynamoDbClient = DynamoDbClient.builder().region(region).build();
+                                                                
+                                                                
 
-                        DynamoDbClient dynamoDbClient = DynamoDbClient.builder()
-                                                                .region(region)
-                                                                .build();
+                        for (Object element : sector_list) {
 
-                        for (Object element : lambda_func_list) {
+                                String sector = (String) element;
 
-                                String func_name = (String) element;
-
+                                String func_name = sector+"_lam";
                                 String handler = func_name+".lambda_handler";
                                 String filename = func_name+".py";
-                                String table_name = func_name.split("_")[0]+"_tbl";
+                                String table_name = sector+"_tbl";
 
-                                
-                                // read python file into bytes
+
+                                createTable(dynamoDbClient, table_name, partition_key);
                                 byte[] lambdaFunctionBytes = readPythonToByte(filename);
-                
-                                // Get the Stream ARN for the table
+                                enableDynamoDBStream(dynamoDbClient, table_name);
                                 String streamArn = getStreamArn(dynamoDbClient, table_name);
-                
-                                // Create the Lambda function
                                 createLambdaFunction(lambdaClient, func_name, lambdaFunctionBytes, role, handler);
-                
-                                // Create the event source mapping
                                 createEventSourceMapping(lambdaClient, func_name, streamArn);
-                
-  
+
 
                         }
 
@@ -68,6 +71,36 @@ public class create_lambda_with_dynamo_trigger {
 
 
         }
+
+
+        public static void createTable(DynamoDbClient ddb, String tableName, String partition_key) {
+                try {
+                    CreateTableRequest request = CreateTableRequest.builder()
+                            .attributeDefinitions(
+                                    AttributeDefinition.builder()
+                                            .attributeName(partition_key)
+                                            .attributeType(ScalarAttributeType.N)
+                                            .build())
+                            .keySchema(
+                                    KeySchemaElement.builder()
+                                            .attributeName(partition_key)
+                                            .keyType(KeyType.HASH) // Partition key
+                                            .build())
+                            .provisionedThroughput(
+                                    ProvisionedThroughput.builder()
+                                            .readCapacityUnits(5L)
+                                            .writeCapacityUnits(5L)
+                                            .build())
+                            .tableName(tableName)
+                            .build();
+        
+                    ddb.createTable(request);
+                    System.out.println("Table created successfully: " + tableName);
+        
+                } catch (DynamoDbException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
     
 
 
@@ -177,10 +210,36 @@ public class create_lambda_with_dynamo_trigger {
                 lambdaClient.createEventSourceMapping(eventSourceMappingRequest);
                 System.out.println("Event source mapping created for function: " + functionName);
         }
-        catch (InvalidParameterValueException e) {
+        catch (ResourceConflictException e) {
                 System.out.println("event source already mapped" );
 
         }
 
     }
+
+
+ 
+
+        private static void enableDynamoDBStream(DynamoDbClient dynamoDbClient, String tableName) {
+
+        try {
+                StreamSpecification streamSpecification = StreamSpecification.builder()
+                        .streamEnabled(true)
+                        .streamViewType("NEW_AND_OLD_IMAGES")
+                        .build();
+
+                UpdateTableRequest updateTableRequest = UpdateTableRequest.builder()
+                        .tableName(tableName)
+                        .streamSpecification(streamSpecification)
+                        .build();
+
+                dynamoDbClient.updateTable(updateTableRequest);
+                System.out.println("DynamoDB Streams enabled on table " + tableName);
+
+        }
+        catch (DynamoDbException e){
+                System.out.println("Table already has an enabled stream");
+        }
+}
+
 }

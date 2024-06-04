@@ -1,4 +1,7 @@
 {   
+
+    "sectors": ["bank", "energy", "fmcg","healthcare"],
+
     "identifier_list":{
         "BANK": ["ICICIBANKEQN","AXISBANKEQN","SBINEQN","IDFCFIRSTBEQN","HDFCBANKEQN"],
         "ENERGY": ["RELIANCEEQN","ONGCEQN","GAILEQN","COALINDIAEQN","PETRONETEQN"],
@@ -11,12 +14,7 @@
         "FMCG": "fmcg_tp",
         "HEALTHCARE" : "healthcare_tp"
     },
-    "dynamodb_table_names":{
-        "BANK": "bank_tbl",
-        "ENERGY": "energy_tbl",
-        "FMCG": "fmcg_tbl",
-        "HEALTHCARE" : "healthcare_tbl"
-    },
+
     "sns_topic_names":{
         "BANK": "bank_snstp",
         "ENERGY": "energy_snstp",
@@ -25,13 +23,6 @@
         
     },
 
-    "lambda_func_names":{
-        "BANK": "bank_lam",
-        "ENERGY": "energy_lam",
-        "FMCG": "fmcg_lam",
-        "HEALTHCARE" : "healthcare_lam"
-        
-    },
     "iam_role_for_lambda":"arn:aws:iam::042488648100:role/arulraj_lambda_role",
     "sns_subscribe_mail_id":"arulrajgopal@outlook.com"
 }
