@@ -9,7 +9,7 @@ def lambda_handler(event, context):
 
             #extracting message from the event
             new_image = event["Records"][0]["dynamodb"]["NewImage"]
-            message = "As of "+str(new_image["last_updated_time"]["S"])+" , the "+ str(new_image["symbol"]["s"]).lower() +" stock was trading at "+ str(new_image["last_traded_price"]["N"]) + " INR"
+            message = "As of "+str(new_image["last_updated_time"]["S"])+" , the "+ str(new_image["symbol"]["S"]).lower() +" stock was trading at "+ str(new_image["last_traded_price"]["N"]) + " INR"
 
 
             # developing topic_arn with event
