@@ -33,12 +33,9 @@ Steps to start the execution
 
         1. create kafka topics 
 
-        2. create dynamodb tables 
+        2. create lambda with dynamodb
 
-        3. create sns topic and subscribe it
-
-        4. create lambda and map it through dynamodb using event source mapping
-        
+        3. create sns topic and subscribe
           
 *   execute main java file
 
