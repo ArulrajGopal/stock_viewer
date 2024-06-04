@@ -116,7 +116,7 @@ public class kaf_prod_cons {
 
                 while (true) {
         
-                        System.out.println(sector+"Polling");
+                        System.out.println(sector+" Polling");
         
                         ConsumerRecords<String, String> records =  consumer.poll(Duration.ofMillis(20000));
         
