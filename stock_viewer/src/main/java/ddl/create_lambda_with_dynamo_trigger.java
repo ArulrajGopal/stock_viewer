@@ -8,6 +8,8 @@ import software.amazon.awssdk.services.lambda.model.CreateEventSourceMappingRequ
 import software.amazon.awssdk.services.lambda.model.CreateFunctionRequest;
 import software.amazon.awssdk.services.lambda.model.FunctionCode;
 import software.amazon.awssdk.services.lambda.model.Runtime;
+import software.amazon.awssdk.services.lambda.model.ResourceConflictException;
+import software.amazon.awssdk.services.lambda.model.InvalidParameterValueException;
 
 
 import java.io.*;
@@ -156,8 +158,8 @@ public class create_lambda_with_dynamo_trigger {
                 lambdaClient.createFunction(functionRequest);
                 System.out.println("Lambda function created: " + functionName);
             } 
-        catch (Exception e) {
-                System.out.println("failed at creating lambda function : "+e);
+        catch (ResourceConflictException e) {
+                System.out.println("lambda already exists");
 
         }
 
@@ -175,8 +177,8 @@ public class create_lambda_with_dynamo_trigger {
                 lambdaClient.createEventSourceMapping(eventSourceMappingRequest);
                 System.out.println("Event source mapping created for function: " + functionName);
         }
-        catch (Exception e) {
-                System.out.println("failed at event source mapping : "+e);
+        catch (InvalidParameterValueException e) {
+                System.out.println("event source already mapped" );
 
         }
 
