@@ -4,11 +4,11 @@ import java.io.IOException;
 
 public class test {
     public static void main(String[] args) throws IOException {
-        // System.out.println("Connection working!");
+        System.out.println("Hello world!");
 
 
-        fetchstockdetails obj = new fetchstockdetails();
-        System.out.println(obj.fetchStockDetails_through_aws_api_gateway());
+        // fetchstockdetails obj = new fetchstockdetails();
+        // System.out.println(obj.fetchStockDetails_through_aws_api_gateway());
     }
 }
 
