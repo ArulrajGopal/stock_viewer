@@ -19,7 +19,8 @@ Steps to start the execution
             aws --version
 
             aws configure
-*   configure rapid api key - Take the "x-rapidapi-key" from rapid api and paste it in fetchstockdetails.java file
+*   configure rapid api key
+            Take the "x-rapidapi-key" from rapid api and paste it in fetchstockdetails.java file
   
 *    start zookeeper and kafka
   
